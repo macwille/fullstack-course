@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Header = (props) => {
+    console.log(props)
     return (
         <>
         <h1>{props.course}</h1>
@@ -10,23 +11,32 @@ const Header = (props) => {
 }
 
 const Content = (props) => {
+    console.log(props)
+    const [eka, toka , kolmas] = props.parts
     return (
         <>
-        <Part name = {props.part1} ex = {props.ex1}/>
-        <Part name = {props.part2} ex = {props.ex2}/>
-        <Part name = {props.part3} ex = {props.ex3}/>
+        <Part name = {eka.name} ex = {eka.exercises}/>
+        <Part name = {toka.name} ex = {toka.exercises}/>
+        <Part name = {kolmas.name} ex = {kolmas.exercises}/>
         </>
     )
 }
 
 const Total = (props) => {
+    console.log(props)
+    let sum = 0
+    props.parts.forEach(element => {
+        sum += element.exercises
+    });
+
     return (
     <>
-    <p>yhteensa {props.ex1 + props.ex2 + props.ex3} tehtävää</p>
+    <p>yhteensä {sum} tehtävää</p>
     </>
     )
 }
 const Part = (props) => {
+    console.log(props)
     return (
         <>
         <p>{props.name} {props.ex}</p>
@@ -36,18 +46,26 @@ const Part = (props) => {
 
 const App = () => {
     const course = 'Half Stack -sovelluskehitys'
-    const part1 = 'Reactin perusteet'
-    const exercises1 = 10
-    const part2 = 'Tiedonvälitys propseilla'
-    const exercises2 = 7
-    const part3 = 'Komponenttien tila'
-    const exercises3 = 14
+    const parts = [
+        {
+        name: 'Reactin perusteet',
+        exercises: 10
+    },
+    {
+        name: 'Tiedonvälitys propseilla',
+        exercises: 7
+    },
+    {
+        name: 'Komponenttien tila',
+        exercises: 14
+      }
+    ]  
     return (
-    <div>
-     <Header course = {course}/>
-     <Content part1 = {part1} ex1 = {exercises1} part2 = {part2} ex2 = {exercises2} part3 = {part3} ex3 = {exercises3}/>
-     <Total ex1={exercises1} ex2 = {exercises2} ex3 = {exercises3}/>
-    </div>
+        <div>
+            <Header course = {course}/>
+            <Content parts = {parts}/>
+            <Total parts = {parts}/>
+        </div>
     )
 }
 
