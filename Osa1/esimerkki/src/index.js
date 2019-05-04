@@ -19,7 +19,6 @@ const App = () => {
          <h1>Greetings</h1>
          <Hello name = "Arto" age={26+10}/>
          <Hello name = {nimi} age={ika}/>
-
         </>
 
     )
