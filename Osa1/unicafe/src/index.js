@@ -27,7 +27,7 @@ const Statistics = ({feedback, good, neutral, bad}) => {
             <br></br>
             average {(good - bad) / feedback}
             <br></br>
-            positive {good / feedback} %
+            positive {good / feedback* 100} %
             </div>
             
 
