@@ -2,7 +2,7 @@ import React from 'react'
 import Note from './components/Note'
 
 const App = ({notes}) => {
-   console.log('notes: ', notes)
+   console.log(notes)
 
    const rows = () => notes.map(note =>
       <Note
