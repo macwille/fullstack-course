@@ -1,3 +1,5 @@
-# Fullstack Course [website](https://fullstackopen.com/)
+# Fullstack Course
+
+[website](https://fullstackopen.com/)
 
 
