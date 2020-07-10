@@ -10,7 +10,6 @@ const App = () => {
             Minun oma nettisivuni :) jee
          </h1>
         
-         
          <p>Sorry I'm new</p>
       </div>
      
