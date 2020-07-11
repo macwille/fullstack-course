@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Note from './components/Note'
 
-// Main App
+// Notes
 const App = (props) => {
 
    const [notes, setNotes] = useState(props.notes)
