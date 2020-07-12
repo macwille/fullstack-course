@@ -59,8 +59,9 @@ const App = () => {
   return (
     <div>
       <Phonebook addPerson={addPerson} setNewNumber={setNewNumber} handlePersonChange={handlePersonChange} handleNumberChange={handleNumberChange} />
-      <h1>Numbers, {persons.length} in total</h1>
+      <br></br>
       <Filter currentFilter={currentFilter} handleFilterChange={handleFilterChange} personsToShow={personsToShow} />
+      <h1>Numbers, {persons.length} in total</h1>
       <ul>
         {personsToShow.map(person =>
           <Person key={person.name} name={person.name} number={person.number}></Person>
