@@ -25,7 +25,6 @@ const App = () => {
         setPersons(persons.concat(personObject))
         setNewPerson('')
         setNewNumber('')
-
       } else {
         console.log('Name field was empty.')
       }
