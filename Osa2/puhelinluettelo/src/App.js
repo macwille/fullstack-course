@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Person from './components/Person'
+import Phonebook from './components/Phonebook'
+import Filter from './components/Filter'
 
 
 // Puhelinluettelo
@@ -56,32 +58,9 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        <h1>Phonebook</h1>
-        <h3>Add a new person</h3>
-        <form onSubmit={addPerson}>
-          Name:
-        <input
-            value={newPerson}
-            onChange={handlePersonChange}
-          />
-          <br></br>
-        Number:
-        <input
-            value={newNumber}
-            onChange={handleNumberChange}
-          />
-          <br></br>
-          <button type="submit">Save</button>
-        </form>
-      </div>
-      <h1>Numbers</h1>
-      Filter:
-      <input
-        value={currentFilter}
-        onChange={handleFilterChange}
-
-      />
+      <Phonebook addPerson={addPerson} setNewNumber={setNewNumber} handlePersonChange={handlePersonChange} handleNumberChange={handleNumberChange} />
+      <h1>Numbers, {persons.length} in total</h1>
+      <Filter currentFilter={currentFilter} handleFilterChange={handleFilterChange} personsToShow={personsToShow} />
       <ul>
         {personsToShow.map(person =>
           <Person key={person.name} name={person.name} number={person.number}></Person>
