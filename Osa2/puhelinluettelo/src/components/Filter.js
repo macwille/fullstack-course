@@ -8,12 +8,9 @@ const Filter = (props) => {
             <input
                 value={props.currentFilter}
                 onChange={props.handleFilterChange}
-
             />
-            <p>Found {props.personsToShow.length} contacts</p>
         </div>
     )
-
 }
 
 export default Filter

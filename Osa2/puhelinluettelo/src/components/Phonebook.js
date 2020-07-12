@@ -4,7 +4,6 @@ const Phonebook = (props) => {
 
     return (
         <div>
-            <h1>Phonebook</h1>
             <h3>Add a new person</h3>
             <form onSubmit={props.addPerson}>
                 Name:
