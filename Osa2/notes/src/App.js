@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Note from './components/Note'
+import axios from 'axios'
 
-// Notes
-const App = (props) => {
+const App = () => {
 
-   const [notes, setNotes] = useState(props.notes)
+   const [notes, setNotes] = useState([])
    const [newNote, setNewNote] = useState('a new note...')
    const [showAll, setShowAll] = useState(true)
+
+   // Getting Notes from server
+
+   const hook = () => {
+      console.log('Notes effect')
+      axios
+         .get('http://localhost:3001')
+         .then(r => {
+            console.log('promise fulfilled,' + r.data)
+            setNotes(r.data)
+         })
+   }
+
+   useEffect(hook, [])
 
    // Adding a new note
    const addNote = (event) => {
@@ -23,6 +37,7 @@ const App = (props) => {
       setNewNote('you have ' + (notes.length + 1) + ' notes...')
 
    }
+   // New note input change
 
    const handleNoteChange = (event) => {
       console.log(event.target.value)

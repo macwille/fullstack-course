@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import Person from './components/Person'
 import Phonebook from './components/Phonebook'
 import Filter from './components/Filter'
@@ -10,6 +11,18 @@ const App = () => {
   const [newPerson, setNewPerson] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [currentFilter, setFilter] = useState('')
+
+  // Get names from server
+  const hook = () => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }
+  useEffect(hook, [])
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -34,6 +47,7 @@ const App = () => {
     }
 
   }
+
   const handlePersonChange = (event) => {
     console.log(event.target.value)
     setNewPerson(event.target.value)
