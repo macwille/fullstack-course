@@ -27,14 +27,16 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Maat</h1>
+      <h1>The Great Countries of the World</h1>
+      <p>(Capital letters and grammar do matter)</p>
       <form>
         Filter:
         <input
+          value={filter}
           onChange={handleFilterInput}
         />
       </form>
-      <CountryList filter={filter} countries={countries} />
+      <CountryList filter={filter} countries={countries} setFilter={setFilter} />
     </div>
   );
 }
