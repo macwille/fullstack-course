@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Note from './components/Note'
-import axios from 'axios'
+import noteService from './services/notes'
 
 const App = () => {
 
@@ -10,17 +10,13 @@ const App = () => {
 
    // Getting Notes from server
 
-   const hook = () => {
-      console.log('Notes effect')
-      axios
-         .get('http://localhost:3001')
-         .then(r => {
-            console.log('promise fulfilled,' + r.data)
-            setNotes(r.data)
+   useEffect(() => {
+      noteService
+         .getAll()
+         .then(initialNotes => {
+            setNotes(initialNotes)
          })
-   }
-
-   useEffect(hook, [])
+   }, [])
 
    // Adding a new note
    const addNote = (event) => {
@@ -33,8 +29,12 @@ const App = () => {
          id: notes.length + 1,
       }
       console.log('added new note: ', noteObject)
-      setNotes(notes.concat(noteObject))
-      setNewNote('you have ' + (notes.length + 1) + ' notes...')
+      noteService
+         .create(noteObject)
+         .then(returnedNote => {
+            setNotes(notes.concat(returnedNote))
+            setNewNote('')
+         })
 
    }
    // New note input change
@@ -43,6 +43,20 @@ const App = () => {
       console.log(event.target.value)
       setNewNote(event.target.value)
    }
+
+   const toggleImportanceOf = id => {
+      const note = notes.find(n => n.id === id)
+      const changedNote = { ...note, important: !note.important }
+
+      noteService
+         .update(id, changedNote)
+         .then(returnedNote => {
+            setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+         })
+
+   }
+
+   // Show important filter
 
    const notesToShow = showAll
       ? notes
@@ -59,8 +73,12 @@ const App = () => {
             </button>
          </div>
          <ul>
-            {notesToShow.map(note =>
-               < Note key={note.id} note={note} />
+            {notesToShow.map((note, i) =>
+               <Note
+                  key={i}
+                  note={note}
+                  toggleImportance={() => toggleImportanceOf(note.id)}
+               />
             )}
          </ul>
 
