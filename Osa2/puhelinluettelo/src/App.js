@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import Service from './services/personService'
 import Person from './components/Person'
 import Phonebook from './components/Phonebook'
 import Filter from './components/Filter'
@@ -12,17 +12,14 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [currentFilter, setFilter] = useState('')
 
-  // Get names from server
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+  useEffect(() => {
+    Service
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
-  }
-  useEffect(hook, [])
+  }, [])
+
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -34,10 +31,12 @@ const App = () => {
 
     if (!persons.some(person => person.name === personObject.name)) {
       if (personObject.name.length > 0) {
-        console.log('added a new person: ', personObject)
-        setPersons(persons.concat(personObject))
-        setNewPerson('')
-        setNewNumber('')
+        console.log('New person object: ', personObject)
+        Service
+          .create(personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+          })
       } else {
         console.log('Name field was empty.')
       }
@@ -45,27 +44,33 @@ const App = () => {
       window.alert(`${personObject.name} is already added to the phonebook.`)
       console.log('Name already in phonebook.')
     }
+  }
+
+  const deletePerson = id => {
+    const person = persons.find(p => p.id === id)
+    console.log('person:', person)
+    Service.remove(person.id)
+      .then(returnedPerson => {
+        setPersons(persons.filter(returnedPerson))
+      })
 
   }
 
+
+
   const handlePersonChange = (event) => {
-    console.log(event.target.value)
     setNewPerson(event.target.value)
 
   }
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
     setNewNumber(event.target.value)
   }
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
     setFilter(event.target.value)
 
   }
 
-
-  console.log('filter: ', currentFilter)
   const personsToShow = persons.filter(p => p.name.includes(currentFilter))
 
 
@@ -77,8 +82,12 @@ const App = () => {
       <br></br>
       <h1>Numbers, {persons.length} in total</h1>
       <ul>
-        {personsToShow.map(person =>
-          <Person key={person.name} name={person.name} number={person.number}></Person>
+        {personsToShow.map((person, i) =>
+          <Person
+            key={i}
+            name={person.name}
+            number={person.number}
+            deletePerson={() => deletePerson(person.id)} />
         )}
       </ul>
     </div >

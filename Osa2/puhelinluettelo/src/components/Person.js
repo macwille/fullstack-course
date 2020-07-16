@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-const Person = (props) => {
-    console.log('Person: ', props)
+const Person = ({ name, number, deletePerson }) => {
 
     return (
 
-        <h3>{props.name}, {props.number}</h3>
+        <h3>{name}, {number}<button onClick={deletePerson}> Delete Number</button></h3>
     )
 
 }
