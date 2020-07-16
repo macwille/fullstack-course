@@ -23,7 +23,7 @@ const update = (id, newObject) => {
 const remove = id => {
     console.log('delete called id:', id)
     const request = axios.delete(`${baseUrl}/${id}`)
-    request.then(response => response)
+    return request.then(response => response.data)
 }
 
 export default {

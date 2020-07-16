@@ -12,14 +12,19 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [currentFilter, setFilter] = useState('')
 
-  useEffect(() => {
+  // Get All
+  const hook = () => {
     Service
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       })
-  }, [])
+  }
+  useEffect(hook, [])
 
+
+
+  // Add
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -29,7 +34,7 @@ const App = () => {
 
     }
 
-    if (!persons.some(person => person.name === personObject.name)) {
+    if (persons.some(person => person.name !== personObject.name)) {
       if (personObject.name.length > 0) {
         console.log('New person object: ', personObject)
         Service
@@ -40,22 +45,37 @@ const App = () => {
       } else {
         console.log('Name field was empty.')
       }
+
+      // Update number
     } else {
-      window.alert(`${personObject.name} is already added to the phonebook.`)
-      console.log('Name already in phonebook.')
+      if (window.confirm(`Update number for ${personObject.name} ?`)) {
+        const updatedPerson = persons.find(person => person.name === personObject.name)
+        console.log('updating number for ', updatedPerson)
+        Service.update(updatedPerson.id, personObject)
+          .then(returnedPerson => {
+            setPersons(persons.map(p => p.id !== returnedPerson.id ? p : returnedPerson))
+          })
+
+      }
     }
   }
-
+  // Delete
   const deletePerson = id => {
+
     const person = persons.find(p => p.id === id)
-    console.log('person:', person)
-    Service.remove(person.id)
-      .then(returnedPerson => {
-        setPersons(persons.filter(returnedPerson))
-      })
-
+    // Confirm window
+    if (window.confirm(`Do you want to remove ${person.name} ?`)) {
+      console.log('person:', person)
+      Service.remove(person.id)
+        .then(
+          setPersons(persons.filter(p => p.id !== person.id))
+        ).catch(error => {
+          console.log('Person already deleted:', error)
+          setPersons(persons.filter(p => p.id !== person.id))
+        })
+      console.log('filter person: ', person)
+    }
   }
-
 
 
   const handlePersonChange = (event) => {

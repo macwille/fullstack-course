@@ -18,7 +18,7 @@ const Phonebook = (props) => {
                     onChange={props.handleNumberChange}
                 />
                 <br></br>
-                <button type="submit">Save</button>
+                <button type="submit">Add</button>
             </form>
         </div>
     )
