@@ -13,7 +13,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [currentFilter, setFilter] = useState('')
   const [message, setMessage] = useState(null)
-  const [error, setErrorState] = useState(false)
 
   // Get All
   const hook = () => {
@@ -71,7 +70,7 @@ const App = () => {
             }, 2000)
           })
           .catch(error => {
-            setMessage(`ERROR`, true)
+            setMessage(`ERROR`)
             setTimeout(() => {
               setMessage(null)
             }, 2000)
@@ -98,11 +97,9 @@ const App = () => {
           }, 2000)
         })
         .catch(() => {
-          setErrorState(true)
-          setMessage(`Such error much failure`)
+          setMessage(`Error: ${person.name} was already deleted from server`)
           setTimeout(() => {
             setMessage(null)
-            setErrorState(false)
           }, 2000)
           setPersons(persons.filter(p => p.id !== person.id))
         })
@@ -130,7 +127,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <Notification message={message} error={error} />
+      <Notification message={message} />
       <Filter currentFilter={currentFilter} handleFilterChange={handleFilterChange} personsToShow={personsToShow} />
       <Phonebook addPerson={addPerson} setNewNumber={setNewNumber} handlePersonChange={handlePersonChange} handleNumberChange={handleNumberChange} />
       <br></br>
