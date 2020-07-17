@@ -3,6 +3,7 @@ import Service from './services/personService'
 import Person from './components/Person'
 import Phonebook from './components/Phonebook'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 
 
 // Puhelinluettelo
@@ -11,6 +12,8 @@ const App = () => {
   const [newPerson, setNewPerson] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [currentFilter, setFilter] = useState('')
+  const [message, setMessage] = useState(null)
+  const [error, setErrorState] = useState(false)
 
   // Get All
   const hook = () => {
@@ -34,13 +37,19 @@ const App = () => {
 
     }
 
-    if (persons.some(person => person.name !== personObject.name)) {
+    if (!persons.some(person => person.name === personObject.name)) {
       if (personObject.name.length > 0) {
         console.log('New person object: ', personObject)
         Service
           .create(personObject)
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
+          })
+          .then(() => {
+            setMessage(`Added ${personObject.name} to phonebook`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
           })
       } else {
         console.log('Name field was empty.')
@@ -55,6 +64,18 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== returnedPerson.id ? p : returnedPerson))
           })
+          .then(() => {
+            setMessage(`Updated number for ${updatedPerson.name}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
+          })
+          .catch(error => {
+            setMessage(`ERROR`, true)
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
+          })
 
       }
     }
@@ -68,9 +89,21 @@ const App = () => {
       console.log('person:', person)
       Service.remove(person.id)
         .then(
-          setPersons(persons.filter(p => p.id !== person.id))
-        ).catch(error => {
-          console.log('Person already deleted:', error)
+          setPersons(persons.filter(p => p.id !== person.id)),
+        )
+        .then(() => {
+          setMessage(`${person.name} was deleted from phonebook`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 2000)
+        })
+        .catch(() => {
+          setErrorState(true)
+          setMessage(`Such error much failure`)
+          setTimeout(() => {
+            setMessage(null)
+            setErrorState(false)
+          }, 2000)
           setPersons(persons.filter(p => p.id !== person.id))
         })
       console.log('filter person: ', person)
@@ -97,10 +130,11 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification message={message} error={error} />
       <Filter currentFilter={currentFilter} handleFilterChange={handleFilterChange} personsToShow={personsToShow} />
       <Phonebook addPerson={addPerson} setNewNumber={setNewNumber} handlePersonChange={handlePersonChange} handleNumberChange={handleNumberChange} />
       <br></br>
-      <h1>Numbers, {persons.length} in total</h1>
+      <h1>Persons, {personsToShow.length} found</h1>
       <ul>
         {personsToShow.map((person, i) =>
           <Person
