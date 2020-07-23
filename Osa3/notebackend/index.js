@@ -25,14 +25,18 @@ let notes = [
         important: true
     }
 ]
-
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
-})
-
-app.get('/api/notes', (req, res) => {
+  })
+  
+  app.get('/api/notes', (req, res) => {
     res.json(notes)
-})
+  })
+  
+  const PORT = 3001
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
 
 app.get('/api/notes/:id', (req, res) => {
     const id = Number(req.params.id)
