@@ -4,6 +4,8 @@
 /Testi
 *.vscode/
 
+fullstack-osa3/
+
 # Logs
 logs
 *.log
