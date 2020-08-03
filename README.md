@@ -7,4 +7,4 @@
 
 * [Osa 2](https://github.com/Viltska/fullstack-course/tree/master/Osa2) - `completed`
 
-* [Osa 3](https://github.com/Viltska/fullstack-course/tree/master/Osa3) - `working`
+* [Osa 3](https://github.com/Viltska/fullstack-osa3) - `working`
