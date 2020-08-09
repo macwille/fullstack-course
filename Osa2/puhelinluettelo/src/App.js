@@ -19,12 +19,11 @@ const App = () => {
     Service
       .getAll()
       .then(initialPersons => {
+        console.log('Persons from db:', initialPersons)
         setPersons(initialPersons)
       })
   }
   useEffect(hook, [])
-
-
 
   // Add
 

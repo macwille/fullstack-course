@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const baseUrl = 'http://localhost:3001/api/persons'
-const baseUrl = 'https://fullstack3-backend.herokuapp.com/api/persons'
+const baseUrl = 'http://localhost:3001/api/persons'
+// const baseUrl = 'https://fullstack3-backend.herokuapp.com/api/persons'
 
 const getAll = () => {
     console.log('getAll called')
@@ -17,7 +17,7 @@ const create = newObject => {
 
 const update = (id, newObject) => {
     console.log('update called id:', id)
-    const request = axios.put(`${baseUrl}api/persons/${id}`, newObject)
+    const request = axios.put(`${baseUrl}/${id}`, newObject)
     return request.then(response => response.data)
 }
 
