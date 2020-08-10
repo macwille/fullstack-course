@@ -48,6 +48,13 @@ const App = () => {
             setTimeout(() => {
               setMessage(null)
             }, 2000)
+          }).catch(error => {
+            console.log(error)
+            console.log(error.reponse)
+            setMessage(`Error: ${error}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
           })
       } else {
         console.log('Name field was empty.')
@@ -69,7 +76,7 @@ const App = () => {
             }, 2000)
           })
           .catch(error => {
-            setMessage(`ERROR`)
+            setMessage(`ERROR ${error}`)
             setTimeout(() => {
               setMessage(null)
             }, 2000)
@@ -95,8 +102,8 @@ const App = () => {
             setMessage(null)
           }, 2000)
         })
-        .catch(() => {
-          setMessage(`Error: ${person.name} was already deleted from server`)
+        .catch(error => {
+          setMessage(`ERROR: ${error}`)
           setTimeout(() => {
             setMessage(null)
           }, 2000)
