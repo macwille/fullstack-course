@@ -6,7 +6,7 @@ import Filter from './components/Filter'
 import Notification from './components/Notification'
 
 
-// Puhelinluettelo
+// Phonebook
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newPerson, setNewPerson] = useState('')
@@ -49,9 +49,8 @@ const App = () => {
               setMessage(null)
             }, 2000)
           }).catch(error => {
-            console.log(error)
-            console.log(error.reponse)
-            setMessage(`Error: ${error}`)
+            console.log("api Error:", error.response.data.error)
+            setMessage(`Error: ${error.response.data.error}`)
             setTimeout(() => {
               setMessage(null)
             }, 2000)
@@ -76,12 +75,12 @@ const App = () => {
             }, 2000)
           })
           .catch(error => {
-            setMessage(`ERROR ${error}`)
+            console.log("api Error:", error.response.data.error)
+            setMessage(`Error: ${error.response.data.error}`)
             setTimeout(() => {
               setMessage(null)
             }, 2000)
           })
-
       }
     }
   }
@@ -103,7 +102,8 @@ const App = () => {
           }, 2000)
         })
         .catch(error => {
-          setMessage(`ERROR: ${error}`)
+          console.log("api Error:", error.response.data.error)
+          setMessage(`Error: ${error.response.data.error}`)
           setTimeout(() => {
             setMessage(null)
           }, 2000)
