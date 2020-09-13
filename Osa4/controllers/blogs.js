@@ -27,7 +27,7 @@ blogsRouter.post('/', (request, response, next) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        like: body.likes
+        likes: body.likes
     })
 
     blog.save()
@@ -42,7 +42,7 @@ blogsRouter.post('/test', (request, response, next) => {
         title: "Test",
         author: "Test",
         url: "Test",
-        like: 11
+        likes: 11
     })
 
     blog.save()
