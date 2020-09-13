@@ -2,8 +2,15 @@ const supertest = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../app')
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 const api = supertest(app)
+
+const user = new User({
+    username: "user1",
+    name: "Pekka",
+    passwordHash: "123"
+})
 
 const initialBlogs = [
     {
