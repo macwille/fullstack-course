@@ -3,11 +3,12 @@ const Blog = require('../models/blog')
 
 blogsRouter.get('/', (request, response) => {
     Blog.find({}).then(blogs => {
-        response.json(blogs.map(note => note.toJSON()))
+        response.json(blogs.map(blog => blog.toJSON()))
+
     })
 })
 
-blogsRouter.get('/:id', (request, response) => {
+blogsRouter.get('/:id', (request, response, next) => {
     Blog.findById(request.params.id)
         .then(blog => {
             if (blog) {
@@ -19,14 +20,36 @@ blogsRouter.get('/:id', (request, response) => {
         .catch(error => next(error))
 })
 
-blogsRouter.post('/', (request, response) => {
-    const blog = new Blog(request.body)
+blogsRouter.post('/', (request, response, next) => {
+    const body = request.body
 
-    blog
-        .save()
-        .then(result => {
-            response.status(201).json(result)
+    const blog = new Blog({
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        like: body.likes
+    })
+
+    blog.save()
+        .then(savedBlog => {
+            response.json(savedBlog.toJSON())
         })
+        .catch(error => next(error))
+})
+
+blogsRouter.post('/test', (request, response, next) => {
+    const blog = new Blog({
+        title: "Test",
+        author: "Test",
+        url: "Test",
+        like: 11
+    })
+
+    blog.save()
+        .then(savedBlog => {
+            response.json(savedBlog.toJSON())
+        })
+        .catch(error => next(error))
 })
 
 module.exports = blogsRouter
