@@ -20,8 +20,12 @@ describe('multiple blogs', () => {
     ]
 
 
-    test("total likes", () => {
+    test('total likes', () => {
         const result = listHelper.totalLikes(manyBlogs)
         expect(result).toBe(36)
+    })
+    test('favourite blog', () => {
+        const result = listHelper.favouriteBlog(manyBlogs)
+        expect(result).toEqual(manyBlogs[2])
     })
 })

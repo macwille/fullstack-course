@@ -16,10 +16,6 @@ const favouriteBlog = (blogs) => {
     return favourite
 }
 const mostBlogs = (blogs) => {
-    const freq = _.countBy(blogs, function (each) { return each });
-
-    console.log(freq)
-
     return 1
 }
 

@@ -52,6 +52,7 @@ test('there are two blogs', async () => {
 })
 
 test('a valid blog can be added ', async () => {
+    // Breaks because token support is not implemented for test. 
 
     const blog = {
         name: 'name',
