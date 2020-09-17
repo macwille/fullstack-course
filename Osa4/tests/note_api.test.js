@@ -52,11 +52,13 @@ test('there are two blogs', async () => {
 })
 
 test('a valid blog can be added ', async () => {
+
     const blog = {
         name: 'name',
         author: "author",
         url: "url",
-        likes: 1
+        likes: 1,
+        user: user._id
     }
 
     await api
