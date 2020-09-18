@@ -13,8 +13,6 @@ const initialUsers = [
 
     }]
 
-
-
 beforeEach(async () => {
     await User.deleteMany({})
 
@@ -35,7 +33,8 @@ test('there is 1 user', async () => {
     expect(response.body).toHaveLength(initialUsers.length)
 })
 
-test('username or password under 3 gives error', async () => {
+test('username or password invalid', async () => {
+    
     const user = new User({
         username: "1",
         name: "Pekka",
@@ -45,7 +44,9 @@ test('username or password under 3 gives error', async () => {
         .post('/api/users')
         .send(user)
         .expect(400)
-        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/users')
+    expect(response.body).toHaveLength(initialNotes.length)
 
 })
 

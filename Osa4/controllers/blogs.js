@@ -5,11 +5,9 @@ const User = require('../models/user')
 const { tokenExtractor } = require('../utils/middleware')
 
 
-
 blogsRouter.get('/', (request, response) => {
     Blog.find({}).then(blogs => {
         response.json(blogs.map(blog => blog.toJSON()))
-
     })
 })
 
@@ -30,7 +28,7 @@ blogsRouter.post('/', async (request, response) => {
         return response.status(400).json({ error: 'title and url missing' })
     }
 
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    const decodedToken = jwt.verify(token, process.env.SECRET)
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
@@ -39,7 +37,7 @@ blogsRouter.post('/', async (request, response) => {
 
 
     const blog = new Blog({
-        name: body.name,
+        title: body.title,
         author: body.author,
         url: body.url,
         likes: body.likes,
@@ -50,14 +48,14 @@ blogsRouter.post('/', async (request, response) => {
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
 
-    response.json(savedNote.toJSON())
+    response.json(savedBlog.toJSON())
 })
 
 blogsRouter.put('/:id', (request, response, next) => {
     const body = request.body
 
     const blog = {
-        name: body.name,
+        title: body.title,
         author: body.author,
         url: body.url,
         likes: body.likes

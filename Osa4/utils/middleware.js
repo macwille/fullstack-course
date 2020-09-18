@@ -8,6 +8,15 @@ const requestLogger = (request, response, next) => {
     next()
 }
 
+const tokenExtractor = (request, response, next) => {
+    const authorization = request.get('Authorization')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        return authorization.substring(7)
+    }
+    next(error)
+    return null
+}
+
 const errorHandler = (error, request, response, next) => {
     logger.error(error.message)
 
@@ -20,14 +29,6 @@ const errorHandler = (error, request, response, next) => {
     }
 
     next(error)
-}
-const tokenExtractor = (request, response, next) => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        return authorization.substring(7)
-    }
-    next(error)
-    return null
 }
 
 const unknownEndpoint = (request, response) => {
