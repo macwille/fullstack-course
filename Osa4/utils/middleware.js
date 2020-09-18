@@ -26,6 +26,7 @@ const tokenExtractor = (request, response, next) => {
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
         return authorization.substring(7)
     }
+    next(error)
     return null
 }
 
