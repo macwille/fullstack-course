@@ -38,7 +38,7 @@ beforeEach(async () => {
     await blogObj.save()
 })
 
-test('notes are returned as json', async () => {
+test('blogs are returned as json', async () => {
     await api
         .get('/api/blogs')
         .expect(200)
@@ -71,6 +71,32 @@ test('a valid blog can be added ', async () => {
     const response = await api.get('/api/blogs')
 
     expect(response.body).toHaveLength(initialBlogs.length + 1)
+})
+
+test('default likes value is 0', async () => {
+    const blog = {
+        name: 'name',
+        author: "author",
+        url: "url",
+        user: user._id
+    }
+    await api
+        .post('/api/blogs')
+        .send(blog)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+
+    console.log('LIKES = 0,', response.body[0].likes)
+
+    expect(response.body[initialBlogs + 2].likes).toBe(0)
+
+})
+
+test('id is defined', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body[0].id).toBeDefined()
 })
 
 afterAll(() => {
