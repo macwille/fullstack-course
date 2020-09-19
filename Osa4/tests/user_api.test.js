@@ -34,7 +34,7 @@ test('there is 1 user', async () => {
 })
 
 test('username or password invalid', async () => {
-    
+
     const user = new User({
         username: "1",
         name: "Pekka",
@@ -46,7 +46,7 @@ test('username or password invalid', async () => {
         .expect(400)
 
     const response = await api.get('/api/users')
-    expect(response.body).toHaveLength(initialNotes.length)
+    expect(response.body).toHaveLength(initialUsers.length)
 
 })
 
