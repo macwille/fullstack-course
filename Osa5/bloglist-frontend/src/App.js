@@ -91,7 +91,7 @@ const App = () => {
         .deleteBlog(blog)
         .then(returnedBlog => {
           console.log('deleted blog', returnedBlog)
-          setBlogs(blogs.filter(blog => blog.id === returnedBlog.id))
+          setBlogs(blogs.filter(blog => blog.id !== returnedBlog.id))
         })
     }
   }
