@@ -5,6 +5,7 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
+import BlogList from './components/BlogList'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -36,7 +37,7 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password, 
+        username, password,
       })
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(user)
@@ -122,10 +123,6 @@ const App = () => {
     </Togglable>
   )
 
-  const sortedBlogs = blogs.sort(function (a, b) {
-    return b.likes - a.likes
-  })
-
   return (
     <div>
 
@@ -140,22 +137,8 @@ const App = () => {
         </div>
       }
 
-      <div>
-        <h2>Blogs </h2>
-        <ul>
-          {sortedBlogs.map(blog =>
-            <li key={blog.id} className="listBlog">
-              {blog.title}
-              {user !== null &&
-              <Togglable buttonLabel='view'>
-                by: {blog.author}, (likes: {blog.likes}) <button onClick={() => addLike(blog)}>like</button>
-                <button onClick={() => handleDelete(blog)}>delete</button>
-              </Togglable>}
+      <BlogList blogs={blogs} addLike={addLike} handleDelete={handleDelete} />
 
-            </li>
-          )}
-        </ul>
-      </div>
     </div >
   )
 }
