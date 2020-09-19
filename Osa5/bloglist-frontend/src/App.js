@@ -62,6 +62,7 @@ const App = () => {
     event.preventDefault();
 
     window.localStorage.clear()
+
     setErrorMessage('Logged out')
     setTimeout(() => {
       setErrorMessage(null)
@@ -76,13 +77,18 @@ const App = () => {
         setBlogs(blogs.concat(returnedBlog))
       })
   }
-  const addLike = (id) => {
-    console.log('Add like to id:', id)
+  const addLike = (blog) => {
+    blogService
+    .update(blog.id, blog)
+    .then(returnedBlog => {
+      console.log('updated blog',returnedBlog)
+      setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
+    })
   }
 
   const logoutForm = () => {
     return (
-      <h4>logged in as {user.name} <button onClick={handleLogout}> log out</button></h4>
+      <h4>Logged in as {user.name} <button onClick={handleLogout}> log out</button></h4>
     )
   }
 
@@ -106,14 +112,14 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={errorMessage} />
 
       {user !== null && logoutForm()}
+
+      <Notification message={errorMessage} />
 
       {user === null ?
         loginForm() :
         <div>
-          <p>{user.name} logged in</p>
           {blogForm()}
         </div>
       }
@@ -125,14 +131,14 @@ const App = () => {
             <li key={blog.id} className="listBlog">
               {blog.title}
               <Togglable buttonLabel='view'>
-                by: {blog.author}, (likes: {blog.likes}) <button>like</button>
+                by: {blog.author}, (likes: {blog.likes}) <button onClick={ () => addLike(blog) }>like</button>
               </Togglable>
+              
             </li>
           )}
         </ul>
       </div>
-
-    </div >
+      </div >
   )
 }
 
