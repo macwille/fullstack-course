@@ -36,7 +36,7 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password,
+        username, password, 
       })
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(user)
@@ -79,16 +79,28 @@ const App = () => {
   }
   const addLike = (blog) => {
     blogService
-    .update(blog.id, blog)
-    .then(returnedBlog => {
-      console.log('updated blog',returnedBlog)
-      setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
-    })
+      .update(blog.id, blog)
+      .then(returnedBlog => {
+        console.log('updated blog', returnedBlog)
+        setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
+      })
+  }
+  const handleDelete = (blog) => {
+    if (window.confirm('IS U SURE?')) {
+      blogService
+        .deleteBlog(blog)
+        .then(returnedBlog => {
+          console.log('deleted blog', returnedBlog)
+          setBlogs(blogs.filter(blog => blog.id === returnedBlog.id))
+        })
+    }
   }
 
-  const logoutForm = () => {
+  const userInfo = () => {
     return (
-      <h4>Logged in as {user.name} <button onClick={handleLogout}> log out</button></h4>
+      <div>
+        <h4>Logged in as {user.name} <button onClick={handleLogout}> log out</button></h4>
+      </div>
     )
   }
 
@@ -110,10 +122,14 @@ const App = () => {
     </Togglable>
   )
 
+  const sortedBlogs = blogs.sort(function (a, b) {
+    return b.likes - a.likes
+  })
+
   return (
     <div>
 
-      {user !== null && logoutForm()}
+      {user !== null && userInfo()}
 
       <Notification message={errorMessage} />
 
@@ -127,18 +143,20 @@ const App = () => {
       <div>
         <h2>Blogs </h2>
         <ul>
-          {blogs.map(blog =>
+          {sortedBlogs.map(blog =>
             <li key={blog.id} className="listBlog">
               {blog.title}
+              {user !== null &&
               <Togglable buttonLabel='view'>
-                by: {blog.author}, (likes: {blog.likes}) <button onClick={ () => addLike(blog) }>like</button>
-              </Togglable>
-              
+                by: {blog.author}, (likes: {blog.likes}) <button onClick={() => addLike(blog)}>like</button>
+                <button onClick={() => handleDelete(blog)}>delete</button>
+              </Togglable>}
+
             </li>
           )}
         </ul>
       </div>
-      </div >
+    </div >
   )
 }
 
