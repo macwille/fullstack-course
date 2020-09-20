@@ -17,14 +17,16 @@ const initialBlogs = [
         name: "name1",
         author: "author1",
         url: "url1",
-        likes: 1
+        likes: 1,
+        id: 1
 
     },
     {
         name: "name2",
         author: "author2",
         url: "url2",
-        likes: 2
+        likes: 2,
+        id: 2
 
     }
 ]
