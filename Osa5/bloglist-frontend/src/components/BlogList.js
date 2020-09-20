@@ -5,7 +5,7 @@ import Blog from './Blog'
 const BlogList = (props) => {
     const blogs = props.blogs
 
-    const sortedBlogs = blogs.sort(function (a, b) {
+    const sortedBlogs = blogs.sort((a, b) => {
         return b.likes - a.likes
     })
 

@@ -11,9 +11,9 @@ test('calls correct function,', async () => {
         <BlogForm createBlog={createBlog} />
     )
 
-    const title = component.container.querySelector('title')
-    const author = component.container.querySelector('author')
-    const url = component.container.querySelector('url')
+    const title = component.container.querySelector('#title')
+    const author = component.container.querySelector('#author')
+    const url = component.container.querySelector('#url')
 
     const form = component.container.querySelector('form')
 
@@ -29,7 +29,8 @@ test('calls correct function,', async () => {
 
     fireEvent.submit(form)
 
-    expect(createNote.mock.calls).toHaveLength(1)
-    expect(createNote.mock.calls[0][0].content).toBe('Title')
-
+    expect(createBlog.mock.calls).toHaveLength(1)
+    expect(createBlog.mock.calls[0][0].title).toBe('Title')
+    expect(createBlog.mock.calls[0][0].author).toBe('Author')
+    expect(createBlog.mock.calls[0][0].url).toBe('URL')
 })
