@@ -132,8 +132,6 @@ describe('Blog app', function () {
     cy.get('#url').type('menaiset.fi')
 
     cy.contains('create').click()
-
-    cy.contains('some woman')
-    cy.contains('same note').find('view').click()
+    
   })
 })
