@@ -3,22 +3,22 @@ import { useDispatch } from 'react-redux'
 import { setFilter } from '../reducers/filterReducer'
 
 const Filter = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    const handleChange = (event) => {
-        dispatch(setFilter(event.target.value))
+  const handleChange = (event) => {
+    dispatch(setFilter(event.target.value))
 
-    }
+  }
 
-    const style = {
-        marginBottom: 10
-    }
+  const style = {
+    marginBottom: 10
+  }
 
-    return (
-        <div style={style}>
-            <p>Filter: <input name='filter' onChange={handleChange} /></p>
-        </div>
-    )
+  return (
+    <div style={style}>
+      <p>Search <input name='filter' onChange={handleChange} /></p>
+    </div>
+  )
 }
 
 export default Filter
