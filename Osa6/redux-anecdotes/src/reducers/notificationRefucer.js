@@ -1,26 +1,28 @@
 
-export const setMessage = (message, time) => {
-  return async dispatch => {
+export const setMessage = (message, timeout) => {
+  return (dispatch) => {
+
+    const ID = setTimeout(
+      () => dispatch({ type: 'SET_MESSAGE', message: '', ID: null }),
+      timeout * 1000
+    )
+
     dispatch({
-      type: 'SET_NOTIFICATION',
+      type: 'SET_MESSAGE',
       message,
+      ID,
     })
-    setTimeout(() => {
-      dispatch({
-        type: 'SET_NOTIFICATION',
-        message: null,
-      })
-    }, time * 1000)
   }
 }
 
-const notificationReducer = (state = null, action) => {
-  switch (action.type) {
-    case 'SET_NOTIFICATION':
-      return action.message
-    default:
-      return state
+const notificationReducer = (state = {}, action) => {
+
+  if (action.type === 'SET_MESSAGE') {
+    clearTimeout(state.ID)
+    return { message: action.message, timeoutID: action.ID }
   }
+
+  return state
 }
 
 export default notificationReducer
