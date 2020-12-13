@@ -15,4 +15,4 @@
 
 * [Osa 6](https://github.com/Viltska/fullstack-course/tree/master/Osa6) - `completed`
 
-* [Osa 7](https://github.com/Viltska/fullstack-course/tree/master/Osa6) - `in progress`
+* [Osa 7](https://github.com/Viltska/fullstack-course/tree/master/Osa7) - `in progress`
