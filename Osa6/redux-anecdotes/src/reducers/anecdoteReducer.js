@@ -13,8 +13,8 @@ export const vote = (anecdote) => {
   }
 }
 
-export const createAnecdote = content => {
-  return async dispatch => {
+export const createAnecdote = (content) => {
+  return async (dispatch) => {
     const newAnecdote = await anecdoteService.create(content)
     dispatch({
       type: 'CREATE_NEW',
@@ -52,7 +52,8 @@ const reducer = (state = [], action) => {
         })
 
     case 'CREATE_NEW':
-      return [...state, action.data]
+      const updatedState = [...state, action.data]
+      return [...updatedState]
     default:
       return state
   }
