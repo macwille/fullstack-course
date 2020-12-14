@@ -7,6 +7,7 @@ import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
 
 const App = () => {
+
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
