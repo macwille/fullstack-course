@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { setReduxUser } from './reducers/userReducer'
+import {
+  BrowserRouter as Router,
+  Switch, Route
+} from "react-router-dom"
 
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
+import Navbar from './components/Navbar'
 
 const App = () => {
 
@@ -19,6 +23,7 @@ const App = () => {
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON)
       setUser(loggedUser)
+      console.log(loggedUser)
       blogService.setToken(loggedUser.token)
     }
   }, [])
@@ -33,12 +38,35 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <Router>
+      <Navbar user={user} setUser={setUser} setErrorMessage={setErrorMessage}></Navbar>
       <Notification message={errorMessage} />
-      <LoginForm setErrorMessage={setErrorMessage} setUser={setUser} user={user} />
-      <BlogList blogs={blogs} setBlogs={setBlogs} />
-      <BlogForm blogs={blogs} setBlogs={setBlogs} />
-    </div >
+      <Switch>
+        <Route path="/blogs">
+          <BlogList blogs={blogs} setBlogs={setBlogs} />
+        </Route>
+        <Route path="/create">
+          {user === null ?
+            <LoginForm user={user}
+              setErrorMessage={setErrorMessage}
+              setUser={setUser}></LoginForm>
+            :
+            <BlogForm blogs={blogs} setBlogs={setBlogs} />
+          }
+        </Route>
+        <Route path="/users">
+          <h2>Users</h2>
+        </Route>
+        <Route path="/login">
+          <LoginForm user={user}
+            setErrorMessage={setErrorMessage}
+            setUser={setUser}></LoginForm>
+        </Route>
+        <Route path="/">
+          <h2>Welcome to Blogs</h2>
+        </Route>
+      </Switch>
+    </Router >
   )
 }
 

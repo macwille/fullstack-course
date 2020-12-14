@@ -24,7 +24,7 @@ const LoginForm = ({
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(loginUser)
       )
-      setErrorMessage('Logged in')
+      setErrorMessage(`Logged in as user: ${loginUser.username}`)
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -40,39 +40,25 @@ const LoginForm = ({
     }
   }
 
-  const handleLogout = (event) => {
-    event.preventDefault();
-    window.localStorage.clear()
-    setUser(null)
-    setErrorMessage('Logged out')
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
-  }
-
   return (
     <div>
-      { user !== null ?
-        <div>
-          <p>Logged in as {user.name}</p> <button onClick={handleLogout}> Log out</button>
-        </div>
-        :
+      <h2>Login</h2>
+      {user === null ?
         <Togglable buttonLabel='Login'>
-          <h2>Login</h2>
           <form onSubmit={handleLogin}>
-            <div>
-              Username:
+            Username:
           <input id='username' value={username} onChange={({ target }) => setUsername(target.value)} />
-            </div>
-            <div>
-              Password:
+            Password:
           <input id='password' type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
-            </div>
+
             <button id="login-button" type="submit">
               Login
         </button>
           </form>
-        </Togglable>}
+        </Togglable>
+        :
+        <p>You are Logged in as {user.username}.</p>
+      }
     </div>
   )
 }

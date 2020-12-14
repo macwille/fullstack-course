@@ -35,26 +35,28 @@ const BlogForm = ({ blogs, setBlogs }) => {
   }
 
   return (
-    <Togglable buttonLabel='New Blog' ref={blogFormRef}>
-      <div className="formDiv">
-        <form onSubmit={addBlog}>
-          <h2>Add a Blog</h2>
-          <div>
-            Title:
+    <div>
+      <h2>Add a Blog</h2>
+      <Togglable buttonLabel='New Blog' ref={blogFormRef}>
+        <div className="formDiv">
+          <form onSubmit={addBlog}>
+            <div>
+              Title:
                 <input id='title' value={newTitle} onChange={({ target }) => setNewTitle(target.value)} />
-          </div>
-          <div>
-            Author:
+            </div>
+            <div>
+              Author:
                 <input id='author' value={newAuthor} onChange={({ target }) => setAuthor(target.value)} />
-          </div>
-          <div>
-            Website:
+            </div>
+            <div>
+              Website:
                 <input id='url' value={newUrl} onChange={({ target }) => setUrl(target.value)} />
-          </div>
-          <button type="submit">Create</button>
-        </form>
-      </div>
-    </Togglable>
+            </div>
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      </Togglable>
+    </div>
   )
 }
 BlogForm.propTypes = {
