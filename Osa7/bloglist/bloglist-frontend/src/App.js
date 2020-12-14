@@ -3,7 +3,6 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
-import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
 
@@ -30,6 +29,7 @@ const App = () => {
       const loggedUser = JSON.parse(loggedUserJSON)
       setUser(loggedUser)
       blogService.setToken(loggedUser.token)
+      console.log('Current user:', loggedUser)
     }
   }, [])
 
@@ -97,33 +97,17 @@ const App = () => {
     }
   }
 
-  const userInfo = () => {
-    return (
-      <div>
-        <h4>Logged in as {user.name} <button onClick={handleLogout}> log out</button></h4>
-      </div>
-    )
-  }
-
   return (
     <div>
-      {user !== null && userInfo()}
       <Notification message={errorMessage} />
-      {user === null &&
-        <Togglable buttonLabel='login'>
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-        </Togglable>
-      }
+      <LoginForm
+        setErrorMessage={setErrorMessage}
+        setUser={setUser}
+        user={user}
+        handleLogout={handleLogout}
+      />
       <BlogList blogs={blogs} addLike={addLike} handleDelete={handleDelete} />
-      <Togglable buttonLabel='new blog' ref={blogFormRef}>
-        <BlogForm createBlog={addBlog} />
-      </Togglable>
+      <BlogForm createBlog={addBlog} />
     </div >
   )
 }

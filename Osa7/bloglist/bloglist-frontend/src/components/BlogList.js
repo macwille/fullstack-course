@@ -16,9 +16,9 @@ const BlogList = (props) => {
         {sortedBlogs.map(blog =>
           <li key={blog.id} className="listBlog">
             <Blog blog={blog}></Blog>
-            <Togglable buttonLabel='view'>
-              <a href={blog.url}> {blog.url}</a> (likes: {blog.likes}) <button onClick={() => props.addLike(blog)}>like</button>
-              <button onClick={() => props.handleDelete(blog)}>delete</button>
+            <Togglable buttonLabel='View'>
+              <a href={blog.url}> {blog.url}</a> (likes: {blog.likes}) <button onClick={() => props.addLike(blog)}>Like</button>
+              <button onClick={() => props.handleDelete(blog)}>Delete</button>
             </Togglable>
           </li>
         )}
