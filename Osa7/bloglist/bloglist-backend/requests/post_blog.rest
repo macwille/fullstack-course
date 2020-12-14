@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs/ 
+Content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJpbGwiLCJpZCI6IjVmNjUwMDdmYzVlYWNmMDM4NDI2NzZhZiIsImlhdCI6MTYwMDQ2MDc0OH0.30zePLSw4AJaozoaqsRUSy2vTnyI0fVwVVlmENoyHJg
+
+{
+"title": "Test",
+"author": "Bill",
+"url":"www.blogs.com",
+"likes": 10
+}
