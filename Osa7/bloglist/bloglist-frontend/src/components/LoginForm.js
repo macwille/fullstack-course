@@ -6,7 +6,6 @@ import loginService from '../services/login'
 
 const LoginForm = ({
   user,
-  handleLogout,
   setErrorMessage,
   setUser
 }) => {
@@ -39,6 +38,16 @@ const LoginForm = ({
     }
   }
 
+  const handleLogout = (event) => {
+    event.preventDefault();
+    window.localStorage.clear()
+    setUser(null)
+    setErrorMessage('Logged out')
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+  }
+
   return (
     <div>
       { user !== null ?
@@ -67,7 +76,6 @@ const LoginForm = ({
 }
 
 LoginForm.propTypes = {
-  handleLogout: PropTypes.func.isRequired,
   setErrorMessage: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired
 }
