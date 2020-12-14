@@ -1,22 +1,21 @@
 import React from 'react'
+import { Link } from "react-router-dom"
 
 const UserList = ({ users }) => {
 
-  const sortedList = users.sort((a, b) => {
-    return b.blogs - a.blogs
-  })
+  console.log('User list,', users)
 
   return (
-    < div >
+    <div>
       <h2>Users</h2>
       <ul>
-        {sortedList.map(user =>
+        {users.map(user =>
           <li key={user.id}>
-            {user.username}
+            <Link to={`/users/${user.id}`}><b>{user.username}</b></Link>  has created {user.blogs.length} blogs.
           </li>
         )}
       </ul>
-    </div >
+    </div>
   )
 
 }

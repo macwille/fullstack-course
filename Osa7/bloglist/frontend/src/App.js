@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import {
-  BrowserRouter as Router,
   Switch, Route
 } from "react-router-dom"
 
 import blogService from './services/blogs'
+import userService from './services/users'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
+import UserList from './components/UserList'
+import User from './components/User'
 import Navbar from './components/Navbar'
 
 const App = () => {
 
   const [user, setUser] = useState(null)
+  const [users, setUsers] = useState([])
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -28,6 +31,16 @@ const App = () => {
     }
   }, [])
 
+  // Users hook
+  useEffect(() => {
+    userService
+      .getAll()
+      .then(initialUsers => {
+        console.log(initialUsers)
+        setUsers(initialUsers)
+      })
+  }, [])
+
   // Blogs hook
   useEffect(() => {
     blogService
@@ -38,7 +51,7 @@ const App = () => {
   }, [])
 
   return (
-    <Router>
+    <div>
       <Navbar user={user} setUser={setUser} setErrorMessage={setErrorMessage}></Navbar>
       <Notification message={errorMessage} />
       <Switch>
@@ -46,16 +59,15 @@ const App = () => {
           <BlogList blogs={blogs} setBlogs={setBlogs} />
         </Route>
         <Route path="/create">
-          {user === null ?
-            <LoginForm user={user}
-              setErrorMessage={setErrorMessage}
-              setUser={setUser}></LoginForm>
+          {user === null ? <LoginForm user={user} setErrorMessage={setErrorMessage} setUser={setUser}></LoginForm>
             :
-            <BlogForm blogs={blogs} setBlogs={setBlogs} />
-          }
+            <BlogForm blogs={blogs} setBlogs={setBlogs} />}
+        </Route>
+        <Route path="/users/:id">
+          <User users={users}></User>
         </Route>
         <Route path="/users">
-          <h2>Users</h2>
+          <UserList users={users}></UserList>
         </Route>
         <Route path="/login">
           <LoginForm user={user}
@@ -66,7 +78,7 @@ const App = () => {
           <h2>Welcome to Blogs</h2>
         </Route>
       </Switch>
-    </Router >
+    </div>
   )
 }
 
