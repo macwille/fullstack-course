@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { setReduxUser } from './reducers/userReducer'
 
 import blogService from './services/blogs'
 import Notification from './components/Notification'
@@ -12,14 +13,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
 
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then(initialBlogs => {
-        setBlogs(initialBlogs)
-      })
-  }, [])
-
+  // User hook
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
     if (loggedUserJSON) {
@@ -27,6 +21,15 @@ const App = () => {
       setUser(loggedUser)
       blogService.setToken(loggedUser.token)
     }
+  }, [])
+
+  // Blogs hook
+  useEffect(() => {
+    blogService
+      .getAll()
+      .then(initialBlogs => {
+        setBlogs(initialBlogs)
+      })
   }, [])
 
   return (
