@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 
 import PropTypes from 'prop-types'
 import Togglable from './Togglable'
@@ -42,6 +43,9 @@ const LoginForm = ({
 
   return (
     <div>
+      <Helmet>
+        <title>Blogs - Login</title>
+      </Helmet>
       <h2>Login</h2>
       {user === null ?
         <Togglable buttonLabel='Login'>

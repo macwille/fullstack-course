@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
@@ -36,6 +37,9 @@ const BlogForm = ({ blogs, setBlogs }) => {
 
   return (
     <div>
+      <Helmet>
+        <title>Blogs - Create</title>
+      </Helmet>
       <h2>Add a Blog</h2>
       <Togglable buttonLabel='New Blog' ref={blogFormRef}>
         <div className="formDiv">

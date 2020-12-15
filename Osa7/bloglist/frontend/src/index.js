@@ -7,6 +7,11 @@ import {
 } from "react-router-dom"
 import App from './App'
 
+store.subscribe(() => {
+  const storeNow = store.getState()
+  console.log(storeNow)
+})
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
@@ -14,7 +15,6 @@ const BlogList = ({ blogs, setBlogs }) => {
     blogService
       .update(blog.id, blog)
       .then(returnedBlog => {
-        console.log('updated blog', returnedBlog)
         setBlogs(blogs.map(b => b.id !== returnedBlog.id ? b : returnedBlog))
       })
   }
@@ -24,7 +24,6 @@ const BlogList = ({ blogs, setBlogs }) => {
       blogService
         .deleteBlog(blog)
         .then(returnedBlog => {
-          console.log('deleted blog', returnedBlog)
           setBlogs(blogs.filter(b => b.id !== returnedBlog.id))
         })
     }
@@ -32,11 +31,14 @@ const BlogList = ({ blogs, setBlogs }) => {
 
   return (
     < div >
+      <Helmet>
+        <title>Blogs - Blogs</title>
+      </Helmet>
       <h2>Blogs </h2>
       <ul>
         {sortedBlogs.map(blog =>
           <li key={blog.id} className="listBlog">
-            <Blog blog={blog}></Blog>
+            <Blog blog={blog} />
             <Togglable buttonLabel='View'>
               <a href={blog.url}> {blog.url}</a> (likes: {blog.likes}) <button onClick={() => addLike(blog)}>Like</button>
               <button onClick={() => handleDelete(blog)}>Delete</button>

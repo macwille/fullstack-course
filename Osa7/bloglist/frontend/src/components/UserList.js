@@ -1,12 +1,14 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { Link } from "react-router-dom"
 
 const UserList = ({ users }) => {
 
-  console.log('User list,', users)
-
   return (
     <div>
+      <Helmet>
+        <title>Blogs - Users</title>
+      </Helmet>
       <h2>Users</h2>
       <ul>
         {users.map(user =>
