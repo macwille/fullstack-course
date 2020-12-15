@@ -1,30 +1,25 @@
+export const setReduxUser = (user) => {
+  return ({
+    type: 'SET_USER',
+    data: user
+  })
+}
+
+export const clearReduxUser = () => {
+  return ({
+    type: 'CLEAR_USER'
+  })
+}
 
 const userReducer = (state = null, action) => {
+  console.log('userReducer called', action.type, action.data)
   switch (action.type) {
-    case 'SET':
-      console.log('SET', action.data)
+    case 'SET_USER':
       return action.data
-    case 'CLEAR':
+    case 'CLEAR_USER':
       return null
     default:
       return state
-  }
-}
-
-export const setLoginUser = (user) => {
-  console.log('setLoginUser:',user)
-  return {
-    type: 'SET',
-    data: user,
-  }
-}
-
-export const clearLoginUser = () => {
-  console.log('clearLoginUser')
-  return async (dispatch) => {
-    dispatch({
-      type: 'CLEAR',
-    })
   }
 }
 

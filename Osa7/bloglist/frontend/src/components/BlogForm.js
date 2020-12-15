@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
+import { useDispatch } from 'react-redux'
+import { setMessage } from '../reducers/notificationReducer'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 
 const BlogForm = ({ blogs, setBlogs }) => {
+  const dispatch = useDispatch()
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setAuthor] = useState('')
   const [newUrl, setUrl] = useState('')
@@ -14,7 +17,6 @@ const BlogForm = ({ blogs, setBlogs }) => {
 
   const addBlog = (event) => {
     event.preventDefault()
-
     createBlog({
       title: newTitle,
       author: newAuthor,
@@ -32,7 +34,9 @@ const BlogForm = ({ blogs, setBlogs }) => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
+        dispatch(setMessage(`Created blog "${newTitle}".`))
       })
+
   }
 
   return (

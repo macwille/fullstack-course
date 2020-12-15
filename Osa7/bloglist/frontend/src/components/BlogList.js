@@ -4,14 +4,18 @@ import { Helmet } from 'react-helmet'
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
 import Blog from './Blog'
+import { setMessage } from '../reducers/notificationReducer'
+import { useDispatch } from 'react-redux'
 
 const BlogList = ({ blogs, setBlogs }) => {
+  const dispatch = useDispatch()
 
   const sortedBlogs = blogs.sort((a, b) => {
     return b.likes - a.likes
   })
 
   const addLike = (blog) => {
+    dispatch(setMessage(`You liked "${blog.title}".`))
     blogService
       .update(blog.id, blog)
       .then(returnedBlog => {
@@ -21,6 +25,7 @@ const BlogList = ({ blogs, setBlogs }) => {
 
   const handleDelete = (blog) => {
     if (window.confirm(`Are you sure you want to delete the blog "${blog.title}"?`)) {
+      dispatch(setMessage(`You deleted "${blog.title}".`))
       blogService
         .deleteBlog(blog)
         .then(returnedBlog => {

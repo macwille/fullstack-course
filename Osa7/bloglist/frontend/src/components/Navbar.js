@@ -1,7 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from "react-router-dom"
+import { setMessage } from '../reducers/notificationReducer'
 
-const Navbar = ({ user, setUser, setErrorMessage }) => {
+const Navbar = ({ user, setUser }) => {
+  const dispatch = useDispatch()
 
   const history = useHistory()
 
@@ -10,10 +13,7 @@ const Navbar = ({ user, setUser, setErrorMessage }) => {
     window.localStorage.clear()
     setUser(null)
     history.push('/')
-    setErrorMessage('Logged out')
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
+    dispatch(setMessage('Logged out.'))
   }
 
   return (
@@ -24,7 +24,7 @@ const Navbar = ({ user, setUser, setErrorMessage }) => {
           <Link to="/blogs"><button>Blogs</button></Link>
           <Link to="/create"><button>Create</button></Link>
           <Link to="/users"><button>Users</button></Link>
-          <button style={{ float: "center" }} onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
         :
         <div>

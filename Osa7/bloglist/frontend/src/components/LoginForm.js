@@ -5,13 +5,12 @@ import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 import blogService from '../services/blogs'
 import loginService from '../services/login'
+import { useDispatch } from 'react-redux'
+import { setMessage } from '../reducers/notificationReducer'
+import { setReduxUser } from '../reducers/userReducer'
 
-const LoginForm = ({
-  user,
-  setErrorMessage,
-  setUser
-}) => {
-
+const LoginForm = ({ user, setUser }) => {
+  const dispatch = useDispatch()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,19 +24,15 @@ const LoginForm = ({
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(loginUser)
       )
-      setErrorMessage(`Logged in as user: ${loginUser.username}`)
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      dispatch(setMessage(`Logged in as user "${loginUser.username}".`))
       blogService.setToken(loginUser.token)
       setUser(loginUser)
+      dispatch(setReduxUser(loginUser))
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      setErrorMessage('You shall not pass')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+    } catch (e) {
+      dispatch(setMessage('Login failed.'))
+      console.log(e)
     }
   }
 
@@ -68,7 +63,6 @@ const LoginForm = ({
 }
 
 LoginForm.propTypes = {
-  setErrorMessage: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired
 }
 
