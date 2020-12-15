@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { Form, Button } from 'react-bootstrap'
 
 import { useDispatch } from 'react-redux'
 import { setMessage } from '../reducers/notificationReducer'
@@ -46,23 +47,17 @@ const BlogForm = ({ blogs, setBlogs }) => {
       </Helmet>
       <h2>Add a Blog</h2>
       <Togglable buttonLabel='New Blog' ref={blogFormRef}>
-        <div className="formDiv">
-          <form onSubmit={addBlog}>
-            <div>
-              Title:
-                <input id='title' value={newTitle} onChange={({ target }) => setNewTitle(target.value)} />
-            </div>
-            <div>
-              Author:
-                <input id='author' value={newAuthor} onChange={({ target }) => setAuthor(target.value)} />
-            </div>
-            <div>
-              Website:
-                <input id='url' value={newUrl} onChange={({ target }) => setUrl(target.value)} />
-            </div>
-            <button type="submit">Create</button>
-          </form>
-        </div>
+        <form onSubmit={addBlog}>
+          <Form.Group>
+            <Form.Label>Title:</Form.Label>
+            <Form.Control id='title' value={newTitle} onChange={({ target }) => setNewTitle(target.value)} />
+            <Form.Label>Author:</Form.Label>
+            <Form.Control id='author' value={newAuthor} onChange={({ target }) => setAuthor(target.value)} />
+            <Form.Label>Website:</Form.Label>
+            <Form.Control id='url' value={newUrl} onChange={({ target }) => setUrl(target.value)} />
+            <Button type="submit">Create</Button>
+          </Form.Group>
+        </form>
       </Togglable>
     </div>
   )

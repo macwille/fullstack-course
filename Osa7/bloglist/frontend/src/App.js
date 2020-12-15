@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom"
+import { Container } from 'react-bootstrap'
 
 import blogService from './services/blogs'
 import userService from './services/users'
@@ -50,7 +51,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <Container>
         <Navbar user={user} setUser={setUser} />
         <Notification />
         <Switch>
@@ -78,7 +79,7 @@ const App = () => {
             <About user={user} />
           </Route>
         </Switch>
-      </div>
+      </Container>
     </Router>
   )
 }

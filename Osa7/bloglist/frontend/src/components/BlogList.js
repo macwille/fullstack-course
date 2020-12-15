@@ -1,5 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import { Table } from 'react-bootstrap'
+import { Button, ButtonGroup } from 'react-bootstrap'
 
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
@@ -40,17 +42,26 @@ const BlogList = ({ blogs, setBlogs }) => {
         <title>Blogs - Blogs</title>
       </Helmet>
       <h2>Blogs </h2>
-      <ul>
-        {sortedBlogs.map(blog =>
-          <li key={blog.id} className="listBlog">
-            <Blog blog={blog} />
-            <Togglable buttonLabel='View'>
-              <a href={blog.url}> {blog.url}</a> (likes: {blog.likes}) <button onClick={() => addLike(blog)}>Like</button>
-              <button onClick={() => handleDelete(blog)}>Delete</button>
-            </Togglable>
-          </li>
-        )}
-      </ul>
+      <Table striped>
+        <tbody>
+          {sortedBlogs.map(blog =>
+            <tr key={blog.id} className="listBlog">
+              <td>
+                <Blog blog={blog} />
+                <Togglable buttonLabel='View'>
+                  <a href={blog.url}> {blog.url}</a> (likes: {blog.likes})
+                  <ButtonGroup>
+                    <Button onClick={() => addLike(blog)}>Like</Button>
+                  </ButtonGroup>
+                  <ButtonGroup>
+                    <Button onClick={() => handleDelete(blog)}>Delete</Button>
+                  </ButtonGroup>
+                </Togglable>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
     </div >
   )
 }

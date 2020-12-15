@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../reducers/notificationReducer'
+import { Alert } from 'react-bootstrap'
 
 const Notification = () => {
   const dispatch = useDispatch()
@@ -14,10 +15,20 @@ const Notification = () => {
     }
   }, [message, dispatch])
 
+  if (message === null) {
+    return (
+      <div>
+      </div>
+    )
+  }
+
   return (
-    <div>
-      <h4>{message}</h4>
-    </div >
+
+    <Alert variant="dark">
+      <Alert.Heading>
+        {message}
+      </Alert.Heading>
+    </Alert >
   )
 }
 

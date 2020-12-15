@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from "react-router-dom"
 import { setMessage } from '../reducers/notificationReducer'
+import { Nav, Button } from 'react-bootstrap'
 
 const Navbar = ({ user, setUser }) => {
   const dispatch = useDispatch()
@@ -17,22 +18,36 @@ const Navbar = ({ user, setUser }) => {
   }
 
   return (
-    <nav>
+    <Nav defaultActiveKey="/">
       {user !== null ?
-        <div>
-          <Link to="/"><button>Home</button></Link>
-          <Link to="/blogs"><button>Blogs</button></Link>
-          <Link to="/create"><button>Create</button></Link>
-          <Link to="/users"><button>Users</button></Link>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+        <>
+          <Nav.Item >
+            <Link className="nav-link" to="/"><Button>Home</Button></Link>
+          </Nav.Item>
+          <Nav.Item >
+            <Link className="nav-link" to="/blogs"><Button>Blogs</Button></Link>
+          </Nav.Item >
+          <Nav.Item >
+            <Link className="nav-link" to="/create"><Button>Create</Button></Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="/users"><Button>Users</Button></Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="/"><Button onClick={handleLogout}>Logout</Button></Link>
+          </Nav.Item>
+        </>
         :
-        <div>
-          <Link to="/"><button>Home</button></Link>
-          <Link to="/login"><button>Login</button></Link>
-        </div>
+        <>
+          <Nav.Item>
+            <Link className="nav-link" to="/"><Button>Home</Button></Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="/login"><Button>Login</Button></Link>
+          </Nav.Item>
+        </>
       }
-    </nav >
+    </Nav >
   )
 }
 

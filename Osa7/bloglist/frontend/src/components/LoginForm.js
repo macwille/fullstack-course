@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { Form, Button } from 'react-bootstrap'
 
 import PropTypes from 'prop-types'
 import Togglable from './Togglable'
@@ -44,16 +45,16 @@ const LoginForm = ({ user, setUser }) => {
       <h2>Login</h2>
       {user === null ?
         <Togglable buttonLabel='Login'>
-          <form onSubmit={handleLogin}>
-            Username:
-          <input id='username' value={username} onChange={({ target }) => setUsername(target.value)} />
-            Password:
-          <input id='password' type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
-
-            <button id="login-button" type="submit">
-              Login
-        </button>
-          </form>
+          <Form onSubmit={handleLogin}>
+            <Form.Group>
+              <Form.Label>Username:</Form.Label>
+              <Form.Control id='username' value={username} onChange={({ target }) => setUsername(target.value)} />
+              <Form.Label>Password:</Form.Label>
+              <Form.Control id='password' type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
+            </Form.Group>
+            <Button id="login-button" type="submit">Login</Button>
+          </Form>
+          <br />
         </Togglable>
         :
         <p>You are Logged in as {user.username}.</p>

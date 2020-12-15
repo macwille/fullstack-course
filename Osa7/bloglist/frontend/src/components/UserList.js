@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from "react-router-dom"
+import { Table } from 'react-bootstrap'
 
 const UserList = ({ users }) => {
 
@@ -10,13 +11,17 @@ const UserList = ({ users }) => {
         <title>Blogs - Users</title>
       </Helmet>
       <h2>Users</h2>
-      <ul>
-        {users.map(user =>
-          <li key={user.id}>
-            <Link to={`/users/${user.id}`}><b>{user.username}</b></Link>  has created {user.blogs.length} blogs.
-          </li>
-        )}
-      </ul>
+      <Table striped>
+        <tbody>
+          {users.map(user =>
+            <tr key={user.id}>
+              <td>
+                <Link to={`/users/${user.id}`}><b>{user.username}</b></Link>  has created {user.blogs.length} blogs.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
     </div>
   )
 
