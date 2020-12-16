@@ -10,7 +10,6 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
-import Blog from './components/Blog'
 import UserList from './components/UserList'
 import User from './components/User'
 import Navbar from './components/Navbar'
@@ -18,6 +17,7 @@ import About from './components/About'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './reducers/userReducer'
 import { setReduxblogs } from './reducers/blogReducer'
+import SingleBlog from './components/SingleBlog'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -57,13 +57,14 @@ const App = () => {
     <Router>
       <Container>
         <Navbar />
+        <br></br>
         <Notification />
         <Switch>
+          <Route path="/blogs/:id">
+            <SingleBlog />
+          </Route>
           <Route path="/blogs">
             <BlogList />
-          </Route>
-          <Route path="/blogs/:id">
-            <Blog />
           </Route>
           <Route path="/create">
             {user === null ? <LoginForm />

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from "react-router-dom"
-import { Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 
 const UserList = ({ users }) => {
 
   return (
-    <div>
+    <Container>
       <Helmet>
         <title>Blogs - Users</title>
       </Helmet>
@@ -22,7 +22,7 @@ const UserList = ({ users }) => {
           )}
         </tbody>
       </Table>
-    </div>
+    </Container>
   )
 
 }
