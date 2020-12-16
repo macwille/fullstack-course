@@ -7,11 +7,14 @@ import { Button, Container } from 'react-bootstrap'
 const About = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const blogs = useSelector(state => state.blogs)
 
   const testNotification = (event) => {
     event.preventDefault()
     dispatch(setMessage('Notification Test'))
   }
+
+  console.log('Redux blogs:', blogs)
 
   return (
     <div>

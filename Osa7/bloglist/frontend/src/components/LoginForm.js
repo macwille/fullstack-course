@@ -42,7 +42,7 @@ const LoginForm = () => {
         <title>Blogs - Login</title>
       </Helmet>
       <h2>Login</h2>
-      {user === null ?
+      {!user ?
         <Togglable buttonLabel='Login'>
           <Form onSubmit={handleLogin}>
             <Form.Group>

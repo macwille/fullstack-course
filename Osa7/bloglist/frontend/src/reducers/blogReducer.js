@@ -22,6 +22,13 @@ export const createBlog = (content) => {
   }
 }
 
+export const setReduxblogs = (blogs) => {
+  return ({
+    type: 'SET_BLOGS',
+    data: blogs
+  })
+}
+
 export const initilizeBlogs = () => {
   return async dispatch => {
     const blogs = await blogService.getAll()
@@ -51,10 +58,14 @@ const blogReducer = (state = [], action) => {
         .sort(function (x, y) {
           return y.votes - x.votes
         })
-
     case 'CREATE_NEW':
       const updatedState = [...state, action.data]
       return [...updatedState]
+    case 'SET_BLOGS':
+      const unsorted = action.data
+      return unsorted.sort((a, b) => {
+        return b.likes - a.likes
+      })
     default:
       return state
   }

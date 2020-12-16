@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Form, Button } from 'react-bootstrap'
-
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMessage } from '../reducers/notificationReducer'
+import { setReduxblogs } from '../reducers/blogReducer'
 import blogService from '../services/blogs'
-import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 
-const BlogForm = ({ blogs, setBlogs }) => {
+const BlogForm = () => {
   const dispatch = useDispatch()
+  const blogs = useSelector(state => state.blogs)
+
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setAuthor] = useState('')
   const [newUrl, setUrl] = useState('')
@@ -34,7 +35,7 @@ const BlogForm = ({ blogs, setBlogs }) => {
     blogService
       .create(blogObject)
       .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
+        dispatch(setReduxblogs(blogs.concat(returnedBlog)))
         dispatch(setMessage(`Created blog "${newTitle}".`))
       })
 
@@ -61,10 +62,6 @@ const BlogForm = ({ blogs, setBlogs }) => {
       </Togglable>
     </div>
   )
-}
-BlogForm.propTypes = {
-  blogs: PropTypes.array.isRequired,
-  setBlogs: PropTypes.func.isRequired
 }
 
 export default BlogForm

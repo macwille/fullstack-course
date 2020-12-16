@@ -2,26 +2,23 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Table } from 'react-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap'
-
+import { setMessage } from '../reducers/notificationReducer'
+import { setReduxblogs } from '../reducers/blogReducer'
+import { useDispatch, useSelector } from 'react-redux'
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
 import Blog from './Blog'
-import { setMessage } from '../reducers/notificationReducer'
-import { useDispatch } from 'react-redux'
 
-const BlogList = ({ blogs, setBlogs }) => {
+const BlogList = () => {
   const dispatch = useDispatch()
-
-  const sortedBlogs = blogs.sort((a, b) => {
-    return b.likes - a.likes
-  })
+  const blogs = useSelector(state => state.blogs)
 
   const addLike = (blog) => {
     dispatch(setMessage(`You liked "${blog.title}".`))
     blogService
       .update(blog.id, blog)
       .then(returnedBlog => {
-        setBlogs(blogs.map(b => b.id !== returnedBlog.id ? b : returnedBlog))
+        dispatch(setReduxblogs(blogs.map(b => b.id !== returnedBlog.id ? b : returnedBlog)))
       })
   }
 
@@ -31,7 +28,7 @@ const BlogList = ({ blogs, setBlogs }) => {
       blogService
         .deleteBlog(blog)
         .then(returnedBlog => {
-          setBlogs(blogs.filter(b => b.id !== returnedBlog.id))
+          dispatch(setReduxblogs(blogs.filter(b => b.id !== returnedBlog.id)))
         })
     }
   }
@@ -44,7 +41,7 @@ const BlogList = ({ blogs, setBlogs }) => {
       <h2>Blogs </h2>
       <Table striped>
         <tbody>
-          {sortedBlogs.map(blog =>
+          {blogs.map(blog =>
             <tr key={blog.id} className="listBlog">
               <td>
                 <Blog blog={blog} />
@@ -65,4 +62,5 @@ const BlogList = ({ blogs, setBlogs }) => {
     </div >
   )
 }
+
 export default BlogList

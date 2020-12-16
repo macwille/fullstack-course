@@ -17,12 +17,13 @@ import Navbar from './components/Navbar'
 import About from './components/About'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './reducers/userReducer'
+import { setReduxblogs } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+
   const [users, setUsers] = useState([])
-  const [blogs, setBlogs] = useState([])
 
   // Logged user hook
   useEffect(() => {
@@ -34,6 +35,15 @@ const App = () => {
     }
   }, [dispatch])
 
+  // Blogs hook
+  useEffect(() => {
+    blogService
+      .getAll()
+      .then(initialBlogs => {
+        dispatch(setReduxblogs(initialBlogs))
+      })
+  }, [dispatch])
+
   // Users hook
   useEffect(() => {
     userService
@@ -43,34 +53,25 @@ const App = () => {
       })
   }, [])
 
-  // Blogs hook
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then(initialBlogs => {
-        setBlogs(initialBlogs)
-      })
-  }, [])
-
   return (
     <Router>
       <Container>
-        <Navbar user={user} />
+        <Navbar />
         <Notification />
         <Switch>
           <Route path="/blogs">
-            <BlogList blogs={blogs} setBlogs={setBlogs} />
+            <BlogList />
           </Route>
           <Route path="/blogs/:id">
-            <Blog blogs={blogs} single={true} />
+            <Blog />
           </Route>
           <Route path="/create">
             {user === null ? <LoginForm />
               :
-              <BlogForm blogs={blogs} setBlogs={setBlogs} />}
+              <BlogForm />}
           </Route>
           <Route path="/users/:id">
-            <User blogs={blogs} />
+            <User />
           </Route>
           <Route path="/users">
             <UserList users={users} />
