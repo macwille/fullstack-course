@@ -25,9 +25,12 @@ export const createBlog = (content) => {
 export const initilizeBlogs = () => {
   return async dispatch => {
     const blogs = await blogService.getAll()
+    const sortedBlogs = blogs.sort((a, b) => {
+      return b.likes - a.likes
+    })
     dispatch({
       type: 'INIT',
-      data: blogs,
+      data: sortedBlogs,
     })
   }
 }

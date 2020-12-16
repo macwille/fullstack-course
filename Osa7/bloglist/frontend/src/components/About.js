@@ -1,17 +1,18 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMessage } from '../reducers/notificationReducer'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 
-const About = ({ user }) => {
+const About = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
-  const testButton = (event) => {
+  const testNotification = (event) => {
     event.preventDefault()
-    dispatch(setMessage('Test'))
-
+    dispatch(setMessage('Notification Test'))
   }
+
   return (
     <div>
       <Helmet>
@@ -20,7 +21,9 @@ const About = ({ user }) => {
       <h2>Welcome to Blogs</h2>
       {user ? <p>You are logged in as <b>{user.username}</b></p> :
         <p>Log in to create blogs</p>}
-      <Button onClick={testButton}>Redux test</Button>
+      <Container>
+        <Button onClick={testNotification}>Notification test</Button>
+      </Container>
     </div>
   )
 }

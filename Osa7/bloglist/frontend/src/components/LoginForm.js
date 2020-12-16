@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Form, Button } from 'react-bootstrap'
 
-import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 import blogService from '../services/blogs'
 import loginService from '../services/login'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMessage } from '../reducers/notificationReducer'
-import { setReduxUser } from '../reducers/userReducer'
+import { setUser } from '../reducers/userReducer'
 
-const LoginForm = ({ user, setUser }) => {
+const LoginForm = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -27,8 +27,7 @@ const LoginForm = ({ user, setUser }) => {
       )
       dispatch(setMessage(`Logged in as user "${loginUser.username}".`))
       blogService.setToken(loginUser.token)
-      setUser(loginUser)
-      dispatch(setReduxUser(loginUser))
+      dispatch(setUser(loginUser))
       setUsername('')
       setPassword('')
     } catch (e) {
@@ -61,10 +60,6 @@ const LoginForm = ({ user, setUser }) => {
       }
     </div>
   )
-}
-
-LoginForm.propTypes = {
-  setUser: PropTypes.func.isRequired
 }
 
 export default LoginForm

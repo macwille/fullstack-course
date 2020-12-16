@@ -1,18 +1,19 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from "react-router-dom"
 import { setMessage } from '../reducers/notificationReducer'
 import { Nav, Button } from 'react-bootstrap'
+import { clearUser } from '../reducers/userReducer'
 
-const Navbar = ({ user, setUser }) => {
+const Navbar = () => {
   const dispatch = useDispatch()
-
+  const user = useSelector(state => state.user)
   const history = useHistory()
 
   const handleLogout = (event) => {
     event.preventDefault();
     window.localStorage.clear()
-    setUser(null)
+    dispatch(clearUser())
     history.push('/')
     dispatch(setMessage('Logged out.'))
   }

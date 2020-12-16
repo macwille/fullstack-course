@@ -1,18 +1,17 @@
-export const setReduxUser = (user) => {
+export const setUser = (user) => {
   return ({
     type: 'SET_USER',
     data: user
   })
 }
 
-export const clearReduxUser = () => {
+export const clearUser = () => {
   return ({
     type: 'CLEAR_USER'
   })
 }
 
 const userReducer = (state = null, action) => {
-  console.log('userReducer called', action.type, action.data)
   switch (action.type) {
     case 'SET_USER':
       return action.data
