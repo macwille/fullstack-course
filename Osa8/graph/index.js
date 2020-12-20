@@ -185,9 +185,9 @@ const resolvers = {
         console.log('Edited author not found')
         return null
       }
-      console.log('Editing author:', author)
       const updatedAuthor = { ...author, born: args.setBornTo }
       authors = authors.map(a => (a.name === args.name) ? updatedAuthor : a)
+      console.log('Updated to ', updatedAuthor)
       return updatedAuthor
     }
   }
