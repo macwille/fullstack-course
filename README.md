@@ -16,3 +16,5 @@
 * [Osa 6](https://github.com/Viltska/fullstack-course/tree/master/Osa6) - `completed`
 
 * [Osa 7](https://github.com/Viltska/fullstack-course/tree/master/Osa7) - `completed`
+
+* [Osa 7](https://github.com/Viltska/fullstack-course/tree/master/Osa8) - `working`
