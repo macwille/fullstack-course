@@ -2,7 +2,7 @@ const { v1: uuid } = require('uuid')
 
 /* eslint-disable no-unused-vars */
 
-const { ApolloServer, gql, UserInputError } = require('apollo-server')
+const { ApolloServer, UserInputError, gql } = require('apollo-server')
 
 let authors = [
   {
