@@ -150,8 +150,6 @@ const resolvers = {
     findAuthor: (root, args) => authors.filter(a => a.name === args.name),
     bookCount: () => books.length,
     allBooks: (root, args) => {
-      console.log('allBooks:', args)
-
       if (!args.author && !args.genre) {
         return books
       }
@@ -170,6 +168,7 @@ const resolvers = {
   },
   Mutation: {
     addBook: (root, args) => {
+      console.log('Add book', args)
       if (books.find(b => b.title === args.title)) {
         throw new UserInputError('Name must be unique', {
           invalidArgs: args.title,
