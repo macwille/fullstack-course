@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
+import Select from 'react-select'
 import { ALL_AUTHORS, EDIT_BIRTHDAY } from '../queries'
 
-const EditBirthdate = () => {
+const EditBirthdate = ({ authors }) => {
   const [name, setName] = useState('')
   const [bornString, setBorn] = useState('')
 
@@ -23,17 +24,39 @@ const EditBirthdate = () => {
 
   }
 
+  const handleNameSelect = (event) => {
+    setBorn (authors.find(a => a.name === event.value).born)
+    setName(event.value)
+  }
+
+  const getAuthorBirthyear = '1000'
+
+  const options = authors.map(a => {
+    return (
+      {
+        value: a.name,
+        label: a.name
+      }
+    )
+  })
+
   return (
     <div>
-      <h4>Edit Birthyear</h4>
+      <h4>Edit the birthyear of {name}</h4>
       <form onSubmit={updateBirthdate}>
+        <Select
+          value={options.find(item => item.value === name)}
+          options={options}
+          onChange={handleNameSelect}
+        />
         <p>
-          Name: <input value={name}
-            onChange={({ target }) => setName(target.value)} required />
-        </p>
-        <p>
-          Birth Year: <input value={bornString} type='number'
-            onChange={({ target }) => setBorn(target.value)} required />
+          Birth Year:
+          <input
+            placeholder={getAuthorBirthyear}
+            value={bornString}
+            type='number'
+            onChange={({ target }) => setBorn(target.value)} required
+          />
         </p>
         <button type='submit'>Update</button>
       </form>

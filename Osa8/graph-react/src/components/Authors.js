@@ -30,7 +30,7 @@ const Authors = ({ authors, show }) => {
           )}
         </tbody>
       </table>
-      <EditBirthdate />
+      <EditBirthdate authors={authors} />
     </div>
   )
 }
