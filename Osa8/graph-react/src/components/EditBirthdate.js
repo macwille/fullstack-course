@@ -19,9 +19,6 @@ const EditBirthdate = ({ authors }) => {
     console.log('Submit:', name, bornString)
     editBirthday({ variables: { name, born: Number(parseInt(bornString)) } })
 
-    setName('')
-    setBorn('')
-
   }
 
   const handleNameSelect = (event) => {
