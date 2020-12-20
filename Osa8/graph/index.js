@@ -106,10 +106,11 @@ const typeDefs = gql`
   type Query {
     authorCount: Int!
     allAuthors: [Author!]!
-    findAuthor(name: String!): Author
+    findAuthor(name: String): Author
     bookCount: Int!
-    allBooks(author: String!): [Book!]!
+    allBooks(author: String, genre: String): [Book!]!
     findBook(name: String!): Book
+    hasGenre(genre: String!): [Book!]!
   }
 
   type Mutation {
@@ -149,11 +150,21 @@ const resolvers = {
     findAuthor: (root, args) => authors.filter(a => a.name === args.name),
     bookCount: () => books.length,
     allBooks: (root, args) => {
-      if (!args.author) {
+      console.log('allBooks:', args)
+
+      if (!args.author && !args.genre) {
         return books
       }
-      const booksByAuthor = books.filter(b => b.author === args.author)
-      return booksByAuthor
+      if (args.author && !args.genre) {
+        return books.filter(b => b.author === args.author)
+      }
+
+      if (args.genre && !args.author) {
+        return books.filter(b => b.genres.includes(args.genre))
+      }
+      return books.
+        filter(b => b.author === args.author).
+        filter(b => b.genres.includes(args.genre))
     },
     findBook: (root, args) => books.filter(b => b.name === args.name)
   },
@@ -170,7 +181,6 @@ const resolvers = {
       return book
     },
     editAuthor: (root, args) => {
-      console.log('Edit author')
       const author = authors.find(a => a.name === args.name)
       if (!author) {
         console.log('Edited author not found')
