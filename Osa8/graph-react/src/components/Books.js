@@ -8,17 +8,12 @@ const Books = ({ books, show }) => {
   return (
     <div>
       <h2>Books</h2>
-
       <table>
         <tbody>
           <tr>
-            <th></th>
-            <th>
-              Author
-            </th>
-            <th>
-              Published
-            </th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published</th>
           </tr>
           {books.map(a =>
             <tr key={a.title}>

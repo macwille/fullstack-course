@@ -40,7 +40,7 @@ const NewBook = (props) => {
 
   return (
     <div>
-      <h2>Create a Book</h2>
+      <h2>Add a Book</h2>
       <form onSubmit={submit}>
         <div>
           Title:
