@@ -126,7 +126,6 @@ const resolvers = {
 
     addBook: async (root, args, context) => {
       const currentUser = context.currentUser
-      console.log(currentUser)
 
       if (!currentUser) {
         throw new AuthenticationError("Not Authenticated")
@@ -137,7 +136,6 @@ const resolvers = {
       const author = await Author.findOne({ name: args.author })
 
       if (!author) {
-        console.log('New author')
         const newAuth = new Author({ name: args.author, born: 0 })
         try {
           await newAuth.save()
@@ -168,7 +166,6 @@ const resolvers = {
       }
 
       const author = await Author.findOne({ name: args.name })
-      console.log('Edit author', author, args)
       author.born = args.setBornTo
 
       try {
@@ -184,10 +181,7 @@ const resolvers = {
     createUser: async (root, args) => {
       const user = await User.findOne({ name: args.username })
 
-      console.log('User?:', user)
-
       if (!user) {
-        console.log('New user', args)
         const newUser = new User({ username: args.username })
         try {
           await newUser.save()
@@ -204,7 +198,6 @@ const resolvers = {
       const user = await User.findOne({ username: args.username })
   
       if ( !user || args.password !== '1234' ){
-        console.log(args.password, '!= 1234')
         throw new UserInputError("wrong credentials")
       }
   
@@ -212,7 +205,6 @@ const resolvers = {
         username: user.username,
         id: user._id,
       }
-      console.log('User', userForToken)
   
       return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
     },
@@ -223,13 +215,10 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => {
-    console.log('context headers:', req.headers)
     const auth = req ? req.headers.authorization : null
     if (auth && auth.toLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(auth.substring(7), process.env.JWT_SECRET)
-      console.log('Token', decodedToken)
       const currentUser = await User.findById(decodedToken.id)
-      console.log('User found', currentUser)
       return { currentUser }
     }
   }
