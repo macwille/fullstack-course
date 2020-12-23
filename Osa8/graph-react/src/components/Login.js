@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 
-const Login = ({ setToken, handleLogout }) => {
+const Login = ({ setToken, handleLogout, setMessage }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -23,7 +23,7 @@ const Login = ({ setToken, handleLogout }) => {
   const handleLogin = async (event) => {
     event.preventDefault()
     login({ variables: { username, password } })
-    
+
     setUsername('')
     setPassword('')
   }

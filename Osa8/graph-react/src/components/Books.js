@@ -1,26 +1,22 @@
-import { useQuery } from '@apollo/client'
 import React, { useState } from 'react'
-import { ALL_BOOKS } from '../queries'
 
-const Books = ({ show }) => {
+const Books = ({ show, books }) => {
   const [filter, setFilter] = useState('')
-  const result = useQuery(ALL_BOOKS)
-  const books = result.data.allBooks
+  const toShow = books.filter((book) => {
+    if (filter !== '') {
+      console.log('Genres:', book.genres)
+      return book.genres.includes(filter)
+    }
+    return books
+  })
 
   if (!show) {
     return null
-  }
-  if (result.loading) {
-    return <p>Loading...</p>
-  }
-  if (result.error) {
-    return <p>Error:{books.error.message}</p>
   }
 
   const handleFilterChange = (value) => {
     setFilter(value)
   }
-  console.log(books)
 
   return (
     <div>
@@ -32,7 +28,7 @@ const Books = ({ show }) => {
             <th>Author</th>
             <th>Published</th>
           </tr>
-          {books && books.map(book =>
+          {books && toShow.map(book =>
             <tr key={book.title}>
               <td>{book.title}</td>
               <td>{book.author}</td>
@@ -42,7 +38,7 @@ const Books = ({ show }) => {
         </tbody>
       </table>
       <br />
-      Filter:{' '}
+      Genre:{' '}
       <input value={filter} onChange={({ target }) => handleFilterChange(target.value)} />
     </div>
   )

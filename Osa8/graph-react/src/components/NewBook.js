@@ -14,6 +14,9 @@ const NewBook = (props) => {
     onError: (error) => {
       console.log(error)
     },
+    update: (store, response) => {
+      props.updateCacheWith(response.data.addBook)
+    }
   })
 
   if (!props.show) {
@@ -22,7 +25,9 @@ const NewBook = (props) => {
 
   const submit = async (event) => {
     event.preventDefault()
-
+    if (published === '') {
+      setPublished(0)
+    }
     createBook({ variables: { title, author, published: Number(parseInt(published)), genres } })
     setTitle('')
     setPublished('')

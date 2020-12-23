@@ -1,24 +1,14 @@
-import { useQuery } from '@apollo/client'
 import React from 'react'
-import { ALL_AUTHORS } from '../queries'
 import EditBirthdate from './EditBirthdate'
 
-const Authors = ({ show }) => {
-  const result = useQuery(ALL_AUTHORS)
-  const authors = result.data.allAuthors
+const Authors = ({ show, authors }) => {
 
   if (!show) {
     return null
   }
-
-  if (result.loading) {
-    return <div>Loading...</div>
+  if (!authors) {
+    return <div>No data</div>
   }
-  
-  if (result.error) {
-    return <div>Error: {result.error.message}</div>
-  }
-
 
   return (
     <div>
