@@ -98,7 +98,7 @@ const resolvers = {
     bookCount: () => Book.collection.countDocuments(),
 
     allBooks: (root, args) => {
-      if (args.genre) {
+      if (args.genre && args.genre !== '') {
         return Book.find({ genres: { $in: args.genre } })
       }
       return Book.find({})
@@ -196,16 +196,16 @@ const resolvers = {
     },
     login: async (root, args) => {
       const user = await User.findOne({ username: args.username })
-  
-      if ( !user || args.password !== '1234' ){
+
+      if (!user || args.password !== '1234') {
         throw new UserInputError("wrong credentials")
       }
-  
+
       const userForToken = {
         username: user.username,
         id: user._id,
       }
-  
+
       return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
     },
   }

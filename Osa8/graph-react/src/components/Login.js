@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 
-export const handleLogout = setToken => {
-  setToken(null)
-  localStorage.clear()
-}
-
-const Login = ({ setToken }) => {
+const Login = ({ setToken, handleLogout }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [login, result] = useMutation(LOGIN)
+  const [login, result] = useMutation(LOGIN, {
+    onError: (error) => {
+      console.log(error)
+    }
+  })
 
   useEffect(() => {
     if (result.data) {
@@ -19,16 +18,12 @@ const Login = ({ setToken }) => {
       setToken(token)
       localStorage.setItem('token', token)
     }
-  }, [result.data, setToken])
+  }, [result.data]) // eslint-disable-line
 
-  const handleLogin = (event) => {
-    console.log('Login')
+  const handleLogin = async (event) => {
     event.preventDefault()
-    login({ variables: { username, password } }).then((response) => {
-      const token = response.data.login.value
-      setToken(token)
-    })
-
+    login({ variables: { username, password } })
+    
     setUsername('')
     setPassword('')
   }
@@ -47,7 +42,7 @@ const Login = ({ setToken }) => {
           </form>
         </div>
         :
-        <button onClick={() => handleLogout(setToken)}>Logout</button>}
+        <button onClick={(e) => handleLogout(e)}>Logout</button>}
     </div>
   )
 }

@@ -16,7 +16,6 @@ const EditBirthdate = ({ authors }) => {
 
   const updateBirthdate = async (event) => {
     event.preventDefault()
-    console.log('Submit:', name, bornString)
     editBirthday({ variables: { name, born: Number(parseInt(bornString)) } })
 
   }
