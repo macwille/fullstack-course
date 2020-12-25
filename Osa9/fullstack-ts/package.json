@@ -1,0 +1,18 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node-dev calculateBmi.ts"
+  },
+  "author": "Ville Manninen",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.16",
+    "ts-node-dev": "^1.1.1"
+  }
+}
