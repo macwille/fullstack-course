@@ -1,18 +1,21 @@
 {
-  "name": "typescript",
+  "name": "fullstack-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "dev": "ts-node-dev index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts-node": "ts-node",
-    "calculateBmi": "ts-node-dev calculateBmi.ts"
+    "calculateBmi": "ts-node-dev calculateBmi.ts",
+    "calculateExercises": "ts-node-dev exerciseCalculator.ts"
   },
   "author": "Ville Manninen",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.14.16",
-    "ts-node-dev": "^1.1.1"
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.1",
+    "typescript": "^4.1.3"
   }
 }

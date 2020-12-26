@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-  },
-  "include": [
-    "index.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "moduleResolution": "node",
+  }
 }

@@ -1,14 +1,38 @@
+interface Values {
+  height: number
+  weight: number
+}
+
+const parseArguments = (args: Array<string>): Values => {
+  if (args.length < 4) throw new Error('Not enought arguments')
+  if (args.length > 4) throw new Error('Too many arguments')
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      height: Number(args[2]),
+      weight: Number(args[3])
+    }
+  } else {
+    throw new Error('Values were not numbers')
+  }
+}
+
 const calculateBmi = (height: number, weight: number,) => {
   const bmi = (weight / (height * height)) * 10000
   if (bmi < 18.5) {
-    return `Underweight (${Math.round(bmi)}).`
+    return `Underweight - BMI(${Math.round(bmi)}).`
   }
   if (bmi > 25) {
-    return `Overweight (${Math.round(bmi)}).`
+    return `Overweight aka. Fatboi - BMI(${Math.round(bmi)}).`
   }
-  return `Normal (${Math.round(bmi)}).`
+  return `Normal - BMI(${Math.round(bmi)}).`
 }
-const a: number = Number(process.argv[2])
-const b: number = Number(process.argv[3])
 
-console.log(calculateBmi(a, b))
+try {
+  const { height, weight } = parseArguments(process.argv)
+  console.log(calculateBmi(height, weight))
+} catch (e) {
+  console.log(`Error: ${e.message}`)
+}
+
+export { calculateBmi }
