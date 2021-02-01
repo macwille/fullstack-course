@@ -20,7 +20,7 @@ const addPatient = (entry: NewPatient): Patient => {
   const newPatient = {
     id: Math.max(...patientData.map(d => d.id)) + 1,
     ...entry,
-  }
+  };
   patientData.push(newPatient);
   return newPatient;
 };

@@ -56,6 +56,6 @@ const toNewPatientEntry = (object: any): NewPatient => {
     dateOfBirth: parseDateOfBirth(object.dateOfBirth),
     occupation: parseOccupation(object.occupation),
   };
-}
+};
 
 export default toNewPatientEntry;
