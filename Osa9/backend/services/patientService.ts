@@ -16,11 +16,11 @@ const getNoSSN = (): NonSensitivePatientData[] => {
   }));
 };
 
-const addEntry = (entry: NewPatient): Patient => {
+const addPatient = (entry: NewPatient): Patient => {
   const newPatient = {
     id: Math.max(...patientData.map(d => d.id)) + 1,
-    ...entry
-  };
+    ...entry,
+  }
   patientData.push(newPatient);
   return newPatient;
 };
@@ -28,5 +28,5 @@ const addEntry = (entry: NewPatient): Patient => {
 export default {
   getEntries,
   getNoSSN,
-  addEntry
+  addPatient
 };
