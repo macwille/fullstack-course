@@ -1,7 +1,7 @@
 import express from 'express';
-import diagnoseData from '../data/diagnoses';
+import diagnoseData from '../../data/diagnoses';
 
-import { Diagnosis } from '../types';
+import { Diagnosis } from '../../types';
 
 const diagnoseRouter = express.Router();
 const diagnoses: Array<Diagnosis> = diagnoseData;

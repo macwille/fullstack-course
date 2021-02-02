@@ -1,4 +1,4 @@
-import { NewPatient, Gender } from '../types';
+import { NewPatient, Gender } from '../../types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -51,10 +51,11 @@ const parseGender = (gender: any): Gender => {
 const toNewPatientEntry = (object: any): NewPatient => {
   return {
     name: parseName(object.name),
-    SSN: parseSSN(object.ssn),
+    ssn: parseSSN(object.ssn),
     gender: parseGender(object.gender),
     dateOfBirth: parseDateOfBirth(object.dateOfBirth),
     occupation: parseOccupation(object.occupation),
+    entries: [],
   };
 };
 
