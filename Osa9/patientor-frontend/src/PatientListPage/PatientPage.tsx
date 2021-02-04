@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Container, Header } from 'semantic-ui-react';
+import { addPatient } from '../state/reducer';
 
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
@@ -17,17 +18,17 @@ const PatientPage: React.FC = () => {
     if (!patients || !patient) {
       axios.get<void>(`${apiBaseUrl}/ping`);
 
-      const fetchPatientList = async () => {
+      const fetchPatient = async () => {
         try {
           const { data: patientFromApi } = await axios.get<Patient>(
             `${apiBaseUrl}/patients/${id}`
           );
-          dispatch({ type: "ADD_PATIENT", payload: patientFromApi });
+          dispatch(addPatient(patientFromApi));
         } catch (e) {
           console.error(e);
         }
       };
-      fetchPatientList();
+      fetchPatient();
     }
   }, [dispatch, id, patients, patient]);
 
