@@ -21,6 +21,24 @@ const getNoSSN = () => {
         entries
     }));
 };
+const getFull = (byId) => {
+    let patient = patients_1.default.find(p => p.id === byId);
+    if (patient) {
+        patient.entries.forEach(e => {
+            switch (e.type) {
+                case 'Hospital':
+                    break;
+                case 'HealthCheck':
+                    break;
+                case 'OccupationalHealthcare':
+                    break;
+                default:
+                    patient = undefined;
+            }
+        });
+    }
+    return patient;
+};
 const getID = (byId) => {
     let patient = patients_1.default.find(p => p.id === byId);
     if (patient) {
@@ -45,15 +63,16 @@ const addPatient = (entry) => {
     return newPatient;
 };
 const addEntry = (id, entry) => {
-    let patient = patients_1.default.find(p => p.id === id);
+    const patient = patients_1.default.find(p => p.id === id);
     if (patient) {
-        console.log(`Add entry ${entry.id} to patient ${patient === null || patient === void 0 ? void 0 : patient.name}`);
+        console.log(`Add entry ${entry.id} to patient ${patient.name}`);
         return patient;
     }
     return undefined;
 };
 exports.default = {
     getEntries,
+    getFull,
     getNoSSN,
     getID,
     addEntry,

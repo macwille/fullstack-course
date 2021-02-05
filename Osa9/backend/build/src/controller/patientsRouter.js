@@ -34,7 +34,7 @@ patientRouter.post('/', (req, res) => {
 patientRouter.post('/:id/entries', (req, res) => {
     const { id } = req.params;
     const body = req.body;
-    const patient = patientService_1.default.getID(id);
+    const patient = patientService_1.default.getFull(id);
     console.log(body);
     if (patient) {
         try {

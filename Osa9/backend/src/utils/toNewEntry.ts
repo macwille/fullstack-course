@@ -1,5 +1,7 @@
 import { Entry } from '../../types';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const generateId = (): string => {
   const id = Math.floor(Math.random() * 99999999999);
   return id.toString();

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const generateId = () => {
     const id = Math.floor(Math.random() * 99999999999);
     return id.toString();

@@ -21,6 +21,25 @@ const getNoSSN = (): NonSensitivePatientData[] => {
   }));
 };
 
+const getFull = (byId: string): Patient | undefined => {
+  let patient = patientData.find(p => p.id === byId);
+  if (patient) {
+    patient.entries.forEach(e => {
+      switch (e.type) {
+        case 'Hospital':
+          break;
+        case 'HealthCheck':
+          break;
+        case 'OccupationalHealthcare':
+          break;
+        default:
+          patient = undefined;
+      }
+    });
+  }
+  return patient;
+};
+
 const getID = (byId: string): NonSensitivePatientData | undefined => {
   let patient = patientData.find(p => p.id === byId);
   if (patient) {
@@ -35,7 +54,7 @@ const getID = (byId: string): NonSensitivePatientData | undefined => {
         default:
           patient = undefined;
       }
-    })
+    });
   }
   return patient;
 };
@@ -51,16 +70,17 @@ const addPatient = (entry: NewPatient): Patient => {
 };
 
 const addEntry = (id: string, entry: Entry): Patient | undefined => {
-  let patient = patientData.find(p => p.id === id);
+  const patient = patientData.find(p => p.id === id);
   if (patient) {
-    console.log(`Add entry ${entry.id} to patient ${patient?.name}`);
+    console.log(`Add entry ${entry.id} to patient ${patient.name}`);
     return patient;
   }
   return undefined;
-}
+};
 
 export default {
   getEntries,
+  getFull,
   getNoSSN,
   getID,
   addEntry,
