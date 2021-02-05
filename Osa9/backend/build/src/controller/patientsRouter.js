@@ -32,20 +32,28 @@ patientRouter.post('/', (req, res) => {
     }
 });
 patientRouter.post('/:id/entries', (req, res) => {
-    const { id } = req.params;
-    const body = req.body;
+    const id = req.params.id;
     const patient = patientService_1.default.getFull(id);
-    console.log(body);
+    const newEntry = toNewEntry_1.default(req.body);
     if (patient) {
         try {
-            const newEntry = toNewEntry_1.default(req.body);
             const updatedPatient = patientService_1.default.addEntry(id, newEntry);
-            res.json(updatedPatient);
+            res.status(200).json(updatedPatient);
         }
         catch (e) {
+            console.log(e);
             res.status(400).send(e.message);
         }
-        res.send(patient);
+    }
+    else {
+        res.status(400).send('No user found');
+    }
+});
+patientRouter.get('/:id/entries', (req, res) => {
+    const { id } = req.params;
+    const patient = patientService_1.default.getID(id);
+    if (patient) {
+        res.send(patient.entries);
     }
     else {
         res.status(400).send('No user found');

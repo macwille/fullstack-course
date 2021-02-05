@@ -10,6 +10,7 @@ const generateId = (): string => {
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
 };
+
 const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };
@@ -23,7 +24,7 @@ const parseSpecialist = (specialist: any): string => {
 
 const parseDate = (date: any): string => {
   if (!date || !isString(date) || !isDate(date)) {
-    throw new Error('Incorrect or missing date: ' + date);
+    throw new Error('Incorrect or missing date ' + date);
   }
   return date;
 };
@@ -55,10 +56,6 @@ const toNewEntry = (object: any): Entry => {
         date: parseDate(object.date),
         description: parseDescription(object.description),
         diagnosisCodes: object.diagnosisCodes,
-        discharge: {
-          date: object.discharge.date,
-          criteria: object.discharge.criteria,
-        },
       };
     case 'OccupationalHealthcare':
       return {

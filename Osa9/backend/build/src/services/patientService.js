@@ -65,8 +65,8 @@ const addPatient = (entry) => {
 const addEntry = (id, entry) => {
     const patient = patients_1.default.find(p => p.id === id);
     if (patient) {
-        console.log(`Add entry ${entry.id} to patient ${patient.name}`);
-        return patient;
+        const newPatient = Object.assign(Object.assign({}, patient), { entries: patient.entries.concat(entry) });
+        return newPatient;
     }
     return undefined;
 };

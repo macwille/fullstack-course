@@ -19,7 +19,7 @@ const parseSpecialist = (specialist) => {
 };
 const parseDate = (date) => {
     if (!date || !isString(date) || !isDate(date)) {
-        throw new Error('Incorrect or missing date: ' + date);
+        throw new Error('Incorrect or missing date ' + date);
     }
     return date;
 };
@@ -48,10 +48,6 @@ const toNewEntry = (object) => {
                 date: parseDate(object.date),
                 description: parseDescription(object.description),
                 diagnosisCodes: object.diagnosisCodes,
-                discharge: {
-                    date: object.discharge.date,
-                    criteria: object.discharge.criteria,
-                },
             };
         case 'OccupationalHealthcare':
             return {
