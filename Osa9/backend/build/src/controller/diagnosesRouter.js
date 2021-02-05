@@ -21,7 +21,4 @@ diagnoseRouter.get('/:code', (req, res) => {
         res.status(400).send('No diagnosis found');
     }
 });
-diagnoseRouter.post('/', (_req, res) => {
-    res.send('Saving a patient!');
-});
 exports.default = diagnoseRouter;

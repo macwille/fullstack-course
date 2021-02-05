@@ -44,9 +44,18 @@ const addPatient = (entry) => {
     patients_1.default.push(newPatient);
     return newPatient;
 };
+const addEntry = (id, entry) => {
+    let patient = patients_1.default.find(p => p.id === id);
+    if (patient) {
+        console.log(`Add entry ${entry.id} to patient ${patient === null || patient === void 0 ? void 0 : patient.name}`);
+        return patient;
+    }
+    return undefined;
+};
 exports.default = {
     getEntries,
     getNoSSN,
     getID,
+    addEntry,
     addPatient
 };

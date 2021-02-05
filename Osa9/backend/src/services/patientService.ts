@@ -1,5 +1,5 @@
 import patientData from '../../data/patients';
-import { NewPatient, NonSensitivePatientData, Patient } from '../../types';
+import { NewPatient, NonSensitivePatientData, Patient, Entry } from '../../types';
 
 const generateID = (): string => {
   const id = Math.floor(Math.random() * 99999999);
@@ -50,9 +50,19 @@ const addPatient = (entry: NewPatient): Patient => {
   return newPatient;
 };
 
+const addEntry = (id: string, entry: Entry): Patient | undefined => {
+  let patient = patientData.find(p => p.id === id);
+  if (patient) {
+    console.log(`Add entry ${entry.id} to patient ${patient?.name}`);
+    return patient;
+  }
+  return undefined;
+}
+
 export default {
   getEntries,
   getNoSSN,
   getID,
+  addEntry,
   addPatient
 };
