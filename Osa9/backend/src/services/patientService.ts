@@ -72,8 +72,7 @@ const addPatient = (entry: NewPatient): Patient => {
 const addEntry = (id: string, entry: Entry): Patient | undefined => {
   const patient = patientData.find(p => p.id === id);
   if (patient) {
-    const newPatient = { ...patient, entries: patient.entries.concat(entry) }
-
+    const newPatient = { ...patient, entries: patient.entries.concat(entry) };
     return newPatient;
   }
   return undefined;

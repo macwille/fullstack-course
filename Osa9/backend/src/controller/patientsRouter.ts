@@ -41,7 +41,7 @@ patientRouter.post('/:id/entries', (req, res) => {
       const updatedPatient = patientService.addEntry(id, newEntry);
       res.status(200).json(updatedPatient);
     } catch (e) {
-      console.log(e)
+      console.log(e);
       res.status(400).send(e.message);
     }
   } else {
