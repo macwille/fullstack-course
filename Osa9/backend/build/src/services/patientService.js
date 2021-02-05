@@ -12,25 +12,31 @@ const getEntries = () => {
     return patients_1.default;
 };
 const getNoSSN = () => {
-    return patients_1.default.map(({ id, name, dateOfBirth, gender, occupation }) => ({
+    return patients_1.default.map(({ id, name, dateOfBirth, gender, occupation, entries }) => ({
         id,
         name,
         dateOfBirth,
         gender,
         occupation,
+        entries
     }));
 };
 const getID = (byId) => {
-    const filtered = patients_1.default.map(({ id, name, dateOfBirth, gender, occupation, ssn }) => ({
-        id,
-        ssn,
-        name,
-        dateOfBirth,
-        gender,
-        occupation,
-        entries: [],
-    }));
-    const patient = filtered.find(p => p.id === byId);
+    let patient = patients_1.default.find(p => p.id === byId);
+    if (patient) {
+        patient.entries.forEach(e => {
+            switch (e.type) {
+                case 'Hospital':
+                    break;
+                case 'HealthCheck':
+                    break;
+                case 'OccupationalHealthcare':
+                    break;
+                default:
+                    patient = undefined;
+            }
+        });
+    }
     return patient;
 };
 const addPatient = (entry) => {

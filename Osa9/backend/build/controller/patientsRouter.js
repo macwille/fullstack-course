@@ -12,7 +12,6 @@ patientRouter.get('/', (_req, res) => {
 });
 patientRouter.get('/:id', (req, res) => {
     const { id } = req.params;
-    console.log(id);
     res.send(patientService_1.default.getNoSSN());
 });
 patientRouter.post('/', (req, res) => {

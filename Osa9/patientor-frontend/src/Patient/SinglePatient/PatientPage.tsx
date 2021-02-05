@@ -2,11 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Container, Header } from 'semantic-ui-react';
-import { addPatient } from '../state/reducer';
+import { addPatient } from '../../state/reducer';
 
-import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
-import { Patient } from "../types";
+import { apiBaseUrl } from "../../constants";
+import { useStateValue } from "../../state";
+import { Patient } from "../../types";
+import EntriesList from '../../Entries/EntriesList';
 
 const PatientPage: React.FC = () => {
   const [{ patients }, dispatch] = useStateValue();
@@ -39,13 +40,14 @@ const PatientPage: React.FC = () => {
         <p>Date of Birth: <b>{patient.dateOfBirth}</b></p>
         <p>Gender: <b>{patient.gender.toUpperCase()}</b></p>
         <p>Occupation: <b>{patient.occupation}</b></p>
+        <EntriesList entries={patient.entries} />
       </Container>
     );
   }
   return (
-    <div>
-      No data :/
-    </div>
+    <Container>
+      <Header as="h2">No data :/</Header>
+    </Container>
   );
 }
 

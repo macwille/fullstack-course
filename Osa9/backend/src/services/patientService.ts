@@ -11,26 +11,32 @@ const getEntries = (): Array<Patient> => {
 };
 
 const getNoSSN = (): NonSensitivePatientData[] => {
-  return patientData.map(({ id, name, dateOfBirth, gender, occupation }) => ({
+  return patientData.map(({ id, name, dateOfBirth, gender, occupation, entries }) => ({
     id,
     name,
     dateOfBirth,
     gender,
     occupation,
+    entries
   }));
 };
 
 const getID = (byId: string): NonSensitivePatientData | undefined => {
-  const filtered = patientData.map(({ id, name, dateOfBirth, gender, occupation, ssn }) => ({
-    id,
-    ssn,
-    name,
-    dateOfBirth,
-    gender,
-    occupation,
-    entries: [],
-  }));
-  const patient = filtered.find(p => p.id === byId);
+  let patient = patientData.find(p => p.id === byId);
+  if (patient) {
+    patient.entries.forEach(e => {
+      switch (e.type) {
+        case 'Hospital':
+          break;
+        case 'HealthCheck':
+          break;
+        case 'OccupationalHealthcare':
+          break;
+        default:
+          patient = undefined;
+      }
+    })
+  }
   return patient;
 };
 
