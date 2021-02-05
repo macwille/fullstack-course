@@ -1,25 +1,31 @@
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { Entry } from '../types';
 import Diagnosis from '../components/Diagnosis'
+
 type Props = {
   entry: Entry;
 }
 
 const HospitalEntry: React.FC<Props> = ({ entry }) => {
   return (
-    <Container>
-      <Header as="h4">Hospital Entry</Header>
-      <p>{entry.description}</p>
-      <ul>
-        {entry.diagnosisCodes?.map(code => (
-          <div key={code}>
-            <Diagnosis code={code} />
-          </div>
-        )
-        )}
-      </ul>
-    </Container >
+    <Card key={entry.id}>
+      <Card.Content>
+        <Card.Header content="Health Check"></Card.Header>
+        <Card.Meta>{entry.date}</Card.Meta>
+        <Card.Description>
+          <p>{entry.description}</p>
+          <ul>
+            {entry.diagnosisCodes?.map(code => (
+              <div key={code}>
+                <Diagnosis code={code} />
+              </div>
+            )
+            )}
+          </ul>
+        </Card.Description>
+      </Card.Content>
+    </Card >
   )
 }
 
