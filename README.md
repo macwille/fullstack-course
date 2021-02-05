@@ -19,4 +19,4 @@
 
 * [Osa 8](https://github.com/Viltska/fullstack-course/tree/master/Osa8) - `completed`
 
-* [Osa 9](https://github.com/Viltska/fullstack-course/tree/master/Osa9) - `working`
+* [Osa 9](https://github.com/Viltska/fullstack-course/tree/master/Osa9) - `completed`
