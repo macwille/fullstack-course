@@ -20,3 +20,5 @@
 * [Osa 8](https://github.com/Viltska/fullstack-course/tree/master/Osa8) - `completed`
 
 * [Osa 9](https://github.com/Viltska/fullstack-course/tree/master/Osa9) - `completed`
+
+* [Osa 11](https://github.com/Viltska/fullstack-course/tree/master/Osa11) - `started`

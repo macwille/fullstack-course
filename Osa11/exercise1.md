@@ -1,0 +1,10 @@
+## Exercise 11.1 Warming up
+
+In any professional situation where there are multiple developers working on the same project, it's vital for the development team to set up a system for following the progress of the program.
+Common problems that arise when programming as a team rather than an individual are changes in code might have side effects in other areas of the code, the code might have a different style depending on the author, or there is no way to quickly check if the changes made have broken the code.
+
+To combat these and other problems there are a number of tools and strategies available for the development team. For example Java coding language has Jenkings CI-platform that automates this task. It can build, test and publish the code using parameters set up by the authors. Jenkings can run a separate server and track changes made to the programs Git repository, if it detects changes it can automatically run tasks assigned to it. 
+
+Java has also other tools to run tests and code style checks, a common testing tool for Java is JUnit where the tests are part of the program structure and can be run locally or in a CI-environment. To enforce universal coding style Java has Checkstyle that can quickly check the code for any style infractions using a set of parameters given to it.
+
+All these solutions have multiple alternatives like Azure or CircleCI. Azure is a Microsoft cloud based DevOps platform that allows multiple different services depending on the needs the development team. In cloud based solutions it's much simpler to add features as the program grows without setting up a huge infrastructure of code before hand. The downside is that your program is completly depended on the services of another service provider and your program information is stored on their devices outside of your control. One aspect not often thought is that the growing number of different CI solutions might limit the recruitment of skilled developers for the company in case they prefer another kind of solutions than used. These are some of the questions that must be weighted when choosing the best solution
