@@ -1,46 +1,39 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
+import Text from './Text'
 import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
   container: {
     padding: Constants.statusBarHeight,
-    minHeight: "15%",
+    minHeight: "10%",
     backgroundColor: "#fff",
+    alignItems: "center"
   },
   flexBox: {
     flexDirection: "row",
     justifyContent: "center",
-    padding: 5,
+    padding: 10,
   },
   flexBoxItem: {
-    padding: "4%"
-  },
-  headerText: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  subtitleText: {
-    textAlign: "center",
+    padding: 10,
+    alignItems: "center"
   },
   boldText: {
     fontWeight: "bold",
     textAlign: "center",
   },
-  languageText: {
+  language: {
     backgroundColor: "#3399ff",
-    padding: 3,
-    margin: 10,
-    marginLeft: "30%",
-    marginRight: "30%",
+    padding: 8,
+    margin: 5,
     color: "#fff",
     borderRadius: 8,
-    textAlign: "center"
   },
   avatarImage: {
     width: 60,
     height: 60,
+    margin: 10,
     borderRadius: 10,
     marginLeft: "auto",
     marginRight: "auto",
@@ -69,25 +62,27 @@ const RepositoryItem = ({
       <Image style={styles.avatarImage} source=
         {{ uri: ownerAvatarUrl }}
       />
-      <Text style={styles.headerText}>{fullName}</Text>
-      <Text style={styles.subtitleText}>{description}</Text>
-      <Text style={styles.languageText}>{language}</Text>
+      <Text fontSize="subheading" fontWeight="bold">{fullName}</Text>
+      <Text>{description}</Text>
+      <View style={styles.language}>
+        <Text style={{ textAlign: "center", color: "#fff" }}>{language}</Text>
+      </View>
       <View style={styles.flexBox}>
         <View style={styles.flexBoxItem}>
           <Text>Stars</Text>
-          <Text style={styles.boldText} > {thousandRounder(stargazersCount)}</Text>
+          <Text fontWeight="bold"> {thousandRounder(stargazersCount)}</Text>
         </View>
         <View style={styles.flexBoxItem}>
           <Text>Forks</Text>
-          <Text style={styles.boldText} >{thousandRounder(forksCount)}</Text>
+          <Text fontWeight="bold">{thousandRounder(forksCount)}</Text>
         </View>
         <View style={styles.flexBoxItem}>
           <Text>Reviews</Text>
-          <Text style={styles.boldText} >{thousandRounder(reviewCount)}</Text>
+          <Text fontWeight="bold">{thousandRounder(reviewCount)}</Text>
         </View>
         <View style={styles.flexBoxItem}>
           <Text>Rating</Text>
-          <Text style={styles.boldText} >{ratingAverage}</Text>
+          <Text fontWeight="bold">{ratingAverage}</Text>
         </View>
       </View>
     </View >

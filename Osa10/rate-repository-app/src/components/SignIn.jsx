@@ -1,5 +1,6 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Formik } from "formik";
+import * as yup from 'yup';
 
 const SignIn = () => {
 
@@ -17,6 +18,12 @@ const SignIn = () => {
       marginRight: 90,
       padding: 10,
     },
+    errorMessage: {
+      marginLeft: 12,
+      paddingBottom: 12,
+      fontSize: 14,
+      color: '#d73a4a'
+    },
     input: {
       height: 40,
       margin: 12,
@@ -24,30 +31,57 @@ const SignIn = () => {
       padding: 10,
     }
   });
+
+  const initalValues = {
+    username: '',
+    password: ''
+  }
+
+  const validationSchema = yup.object().shape({
+    username: yup
+      .string()
+      .max(28)
+      .required('Username is required'),
+    password: yup
+      .string()
+      .min(4)
+      .max(28)
+      .required('Password is required'),
+  });
+
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={initalValues}
       onSubmit={values => console.log(values)}
+      validationSchema={validationSchema}
     >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
+      {({ handleChange, setFieldTouched, errors, touched, handleSubmit, isValid, values }) => (
         <View style={styles.container}>
           <Text style={styles.fieldTitle}>Username:</Text>
           <TextInput
             style={styles.input}
             onChangeText={handleChange('username')}
-            onBlur={handleBlur('username')}
+            onBlur={() => setFieldTouched('username')}
             value={values.username}
+            placeholder='Username'
           />
+          {touched.username && errors.username &&
+            <Text style={styles.errorMessage}>{errors.username}</Text>
+          }
           <Text style={styles.fieldTitle}>Password:</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
             onChangeText={handleChange('password')}
-            onBlur={handleBlur('password')}
+            onBlur={() => setFieldTouched('password')}
             value={values.password}
+            placeholder='Password'
           />
+          {touched.password && errors.password &&
+            <Text style={styles.errorMessage}>{errors.password}</Text>
+          }
           <View style={styles.submit}>
-            <Button onPress={handleSubmit} title="Submit" />
+            <Button onPress={handleSubmit} title="Submit" disabled={!isValid} />
           </View>
         </View>
       )}
