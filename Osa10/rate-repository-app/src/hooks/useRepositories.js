@@ -1,23 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from "@apollo/client";
+import { GET_REPOSITORIES } from "../graphql/queries";
 
-const useRepositories = () => {
-  const [repositories, setRepositories] = useState();
-  const [loading, setLoading] = useState(false);
+const useRepositories = (variables) => {
+  const { data, loading, fetchMore, ...results } = useQuery(GET_REPOSITORIES, {
+    variables, fetchPolicy: 'cache-and-network',
+  })
 
-  const fetchRepositories = async () => {
-    setLoading(true);
-    const response = await fetch('http://192.168.1.37:5000/api/repositories');
-    const json = await response.json();
+  const handleFetch = () => {
+    fetchMore({
+      variables: {
+        after: data.repositories,
+        ...variables
+      },
+    })
+  }
 
-    setLoading(false);
-    setRepositories(json);
+  return {
+    repositories: data ? data.repositories : undefined,
+    loading,
+    ...results,
+    refetch: handleFetch
   };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
-
-  return { repositories, loading, refetch: fetchRepositories };
 };
 
 export default useRepositories;
