@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@expo/metro-config": "^0.3.9",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "dotenv": "^15.0.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
@@ -23,11 +24,14 @@
     "react-native": "0.64.3",
     "react-native-web": "0.17.1",
     "react-router-native": "^6.2.1",
-    "yup": "^0.32.11",
-    "@react-native-async-storage/async-storage": "~1.15.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@babel/eslint-parser": "^7.17.0",
+    "eslint": "^8.8.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-native": "^4.0.0"
   },
   "private": true
 }

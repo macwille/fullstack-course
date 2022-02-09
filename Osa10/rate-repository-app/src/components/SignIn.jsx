@@ -1,49 +1,47 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Formik } from "formik";
 import * as yup from 'yup';
-import useSignIn from '../hooks/useSignin';
+import useSignIn  from '../hooks/useSignIn'
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  fieldTitle: {
+    marginLeft: 12,
+    fontSize: 14,
+  },
+  submit: {
+    fontSize: 14,
+    marginLeft: 90,
+    marginRight: 90,
+    padding: 10,
+  },
+  errorMessage: {
+    marginLeft: 12,
+    paddingBottom: 12,
+    fontSize: 14,
+    color: '#d73a4a'
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  }
+});
 
 const SignIn = () => {
   const [signIn] = useSignIn();
 
-  const handleSubmit = async (values) => {
+  const onSubmit = async (values) => {
     const { username, password } = values;
-
     try {
-      const { data } = await signIn({ username, password });
-      console.log(data);
+      await signIn({ username, password });
     } catch (e) {
       console.log(e);
     }
   };
-
-  const styles = StyleSheet.create({
-    container: {
-      padding: 10,
-    },
-    fieldTitle: {
-      marginLeft: 12,
-      fontSize: 14,
-    },
-    submit: {
-      fontSize: 14,
-      marginLeft: 90,
-      marginRight: 90,
-      padding: 10,
-    },
-    errorMessage: {
-      marginLeft: 12,
-      paddingBottom: 12,
-      fontSize: 14,
-      color: '#d73a4a'
-    },
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-    }
-  });
 
   const initalValues = {
     username: '',
@@ -65,10 +63,10 @@ const SignIn = () => {
   return (
     <Formik
       initialValues={initalValues}
-      onSubmit={values => handleSubmit(values)}
+      onSubmit={values => onSubmit(values)}
       validationSchema={validationSchema}
     >
-      {({ handleChange, setFieldTouched, errors, touched, handleSubmit, isValid, values }) => (
+      {({ handleChange, setFieldTouched, errors, handleSubmit, touched, isValid, values }) => (
         <View style={styles.container}>
           <Text style={styles.fieldTitle}>Username:</Text>
           <TextInput
@@ -98,7 +96,6 @@ const SignIn = () => {
           </View>
         </View>
       )}
-
     </Formik>
   )
 };
