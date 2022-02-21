@@ -12,7 +12,6 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
   const { repositories } = useRepositories();
-  console.log(repositories);
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
