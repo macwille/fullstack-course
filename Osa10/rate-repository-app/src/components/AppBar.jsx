@@ -1,6 +1,9 @@
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { Link } from "react-router-native";
 import Constants from 'expo-constants';
+import useAuthStorage from "../hooks/useAuthStorage";
+import { useEffect, useState } from 'react';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +22,40 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const authStorage = useAuthStorage();
+  const [token, setToken] = useState(null);
+
+
+  useEffect(async () => {
+    const storageToken = await authStorage.getAccessToken();
+    console.log('Storage token', storageToken);
+    console.log('token', token);
+    setToken(storageToken);
+  }, []);
+
+
+  const conditionalRender = () => {
+    if (token === null) {
+      return (
+        <Link
+          to={`/sign`}
+          style={styles.link}
+        >
+          <Text style={styles.linkText}>Sign in</Text>
+        </Link>
+      )
+    }
+    return (
+      <Link
+        to={`/logout`}
+        style={styles.link}
+      >
+        <Text style={styles.linkText}>Sign out</Text>
+      </Link>
+    )
+  };
+
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
@@ -28,12 +65,7 @@ const AppBar = () => {
         >
           <Text style={styles.linkText}>Repositories</Text>
         </Link>
-        <Link
-          to={`/sign`}
-          style={styles.link}
-        >
-          <Text style={styles.linkText}>Sign in</Text>
-        </Link>
+        {conditionalRender()}
       </ScrollView>
     </View>
   );
