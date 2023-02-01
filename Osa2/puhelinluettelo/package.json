@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.5",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
-    "mongoose": "^5.10.5",
+    "mongoose": "^5.13.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.3"
