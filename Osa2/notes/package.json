@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "jason-server": "^3.0.0",
-    "json-server": "^0.16.1"
+    "json-server": "^0.17.1"
   }
 }
